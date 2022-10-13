@@ -1,0 +1,23 @@
+.navbar-buttons > button {
+    background-color: white;
+    border: none;
+    padding: 20px;
+    font-size: 20px;
+    opacity: 0.4;
+    transition: 0.5s;
+}
+.navbar-buttons > button:hover {
+    opacity: 1;
+    
+    background-color: rgb(220, 255, 255);
+}
+
+.navbar-buttons > button.active {
+    opacity: 1;
+}
+
+.separator {
+    margin: 0px 10px;
+    font-weight: 800;
+    color: lightslategrey
+}
