@@ -1,17 +1,16 @@
 import React from 'react'
-import Body from './Sub-Components/Body'
-import Navbar from './Sub-Components/Navbar'
+import Card from './Layout/Card/Card'
+import Navbar from './Layout/Navbar'
 import './Portfolio.css'
 
 export default function Portfolio() {
   return (
-    <div>
-        <div className='navbar-container'>
-            <Navbar></Navbar>
-        </div>
-        <div>
-            <Body></Body>
-        </div>
-    </div>
+    <>
+        <div className='navbar-container'> <Navbar/> </div>
+            <Card image={ null } heading="Project One" content={ <p> I have worked on several projects </p> } />
+            <Card image={ null } heading="Project Two" content={ <p> I have worked on several projects </p> } />
+            <Card image={ null } heading="Project Three" content={ <p> I have worked on several projects </p> } />
+    </>
+    
   )
 }

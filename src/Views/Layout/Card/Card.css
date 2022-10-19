@@ -1,0 +1,10 @@
+@import url('./../../../bootstrap/css/bootstrap-grid.min.css');
+@import url('./../../../bootstrap/css/bootstrap.min.css');
+
+.card {
+    background-color: rgb(241, 241, 241);
+    border: 0.5px solid rgb(233, 233, 233);
+    padding: 1rem;
+    margin: 1rem;
+    min-height: 400px;
+}
