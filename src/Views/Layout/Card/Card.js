@@ -6,6 +6,9 @@ export default function Card(props) {
             <h2>    {props.heading}  </h2>
                     {props.content}
                     {props.image}
+            <div className='vertical-aligned'>
+                    {props.verticalAlignedContent} 
+            </div>
         </div>
     )  
 }

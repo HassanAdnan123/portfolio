@@ -8,3 +8,8 @@
     margin: 1rem;
     min-height: 450px;
 }
+
+.vertical-aligned {
+  margin-top: auto;
+  margin-bottom: auto;
+}

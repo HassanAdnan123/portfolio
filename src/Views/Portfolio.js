@@ -11,7 +11,7 @@ export default function Portfolio() {
       <div className='navbar-container'><Navbar/></div>
       <div className='cards'>
             <Card image={<DeveloperImage/>}/>
-            <Card className="my-auto" content={<LandingText/>} />
+            <Card verticalAlignedContent={<LandingText/>} />
             <Card heading="MEAN, MERN & PERN are my favorite technology stacks!" 
                   content={ 
                             <p> MySQL / Postgres, Express, Angular / React and Node are
