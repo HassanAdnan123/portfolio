@@ -1,3 +1,7 @@
+.navbar-buttons{
+    margin-top: 18px;
+}
+
 .navbar-buttons > button {
     background-color: white;
     border: none;
@@ -17,7 +21,12 @@
 }
 
 .separator {
-    margin: 0px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
     font-weight: 800;
-    color: lightslategrey
+    color: lightslategrey;
 }
+
+
+
+

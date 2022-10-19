@@ -1,16 +1,8 @@
-@import url('./../../bootstrap/css/bootstrap-grid.min.css');
-@import url('./../../bootstrap/css/bootstrap.min.css');
-
-
-.landingMessage {
-    width: 70%;
-}
-
 .slide-in-left {
     position: absolute;
     left: -10%;
-    height: 70%;
-    width: 70%;
+    height: 100%;
+    width: 100%;
     -webkit-animation: slide 0.5s forwards;
     -webkit-animation-delay: 0.5s;
     animation: slide 0.5s forwards;
@@ -19,9 +11,9 @@
 }
 
 @-webkit-keyframes slide {
-    100% { left: -20px; opacity: 1; }
+    100% { left: 0; opacity: 1; }
 }
 
 @keyframes slide {
-    100% { left: -20px; opacity: 1; }
+    100% { left: 0; opacity: 1; }
 }
