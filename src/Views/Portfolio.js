@@ -11,14 +11,14 @@ export default function Portfolio() {
       <div className='navbar-container'><Navbar/></div>
       <div className='cards'>
             <Card image={<DeveloperImage/>}/>
-            <Card content={<LandingText/>} />
+            <Card className="my-auto" content={<LandingText/>} />
             <Card heading="MEAN, MERN & PERN are my favorite technology stacks!" 
-                  content={ <p> MySQL / Postgres, Express, Angular / React and Node are
+                  content={ 
+                            <p> MySQL / Postgres, Express, Angular / React and Node are
                                 my relatively strong suites.
-                      </p> } />
+                            </p> 
+                          } />
       </div>
-
     </>
-    
   )
 }
