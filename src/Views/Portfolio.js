@@ -2,7 +2,9 @@ import React from 'react'
 import Card from './Layout/Card/Card'
 import Navbar from './Layout/Navbar/Navbar'
 import DeveloperImage from './Custom/DeveloperImage'
-import tech_stack from './../Assets/tech_stack.png'
+import MeanImage from './../Assets/mean-stack.png'
+import MernImage from './../Assets/mern-stack.png'
+import JavaImage from './../Assets/java.png'
 import { Carousel } from 'primereact/carousel';
 import './Portfolio.css'
 import LandingText from './Custom/LandingText'
@@ -22,22 +24,33 @@ export default function Portfolio() {
     content: "Developed a full stack app for attendance management for a local client"}
   ]
 
+  const technologies = [
+  {
+    title: "MEAN Stack",
+    content: "I develop awesome designs using Angular, integrate them with nodejs and connect them to Mongo or MySQL databases.",
+    image: MeanImage
+  },
+  {
+    title: "Java",
+    content: "For complex logic and sustainable backend, and for scalable products, I develop in Java Springboot.",
+    image: JavaImage
+  },
+  {
+    title: "MERN Stack",
+    content: "For light weight applications having greater focus on UI/UX, I develop in React",
+    image: MernImage
+  }
+  ]
+
   return (
     <>
       <div className='navbar-container'><Navbar/></div>
       <div className='cards'>
             <Card image={<DeveloperImage/>}/>
             <Card verticalAlignedContent={<LandingText/>} />
-            <Card verticalAlignedSubHeading="MEAN, MERN & PERN are my favorite technology stacks!" 
-                  verticalAlignedContent={ 
-                            <p> MySQL / Postgres, Express, Angular / React and Node are
-                                my relatively strong suites.
-                            </p> 
-                          } />
-            <Card fullwidthimageurl={tech_stack}/>
-            <Card verticalAlignedMainHeading="Projects"/>
-            <Card content= {<Carousel value={projects} itemTemplate={itemTemplate}></Carousel> }/>
+            {technologies.map(item=> <Card cardHeaderImage={item.image} verticalAlignedSubHeading={item.title} verticalAlignedContent={item.content}/>)}
       </div>
+      <Carousel value={projects} itemTemplate={itemTemplate} circular={true} numVisible={3} numScroll={3} header={<h2>Projects</h2>}></Carousel>
     </>
   )
 }

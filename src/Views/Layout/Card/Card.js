@@ -3,6 +3,7 @@ import './Card.css'
 export default function Card(props) {
     return(
         <div className='card'>
+            { props.cardHeaderImage? <img src={props.cardHeaderImage} alt="cardHeaderImage" /> : null }
             <h2>    {props.heading}  </h2>
                     {props.content}
                     {props.image}
