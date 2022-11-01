@@ -13,3 +13,8 @@
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.squared-card-image {
+  max-height: 150px;
+  max-width: 150px;
+}

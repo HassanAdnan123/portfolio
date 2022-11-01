@@ -2,8 +2,11 @@ import './Card.css'
 
 export default function Card(props) {
     return(
-        <div className='card'>
-            { props.cardHeaderImage? <img src={props.cardHeaderImage} alt="cardHeaderImage" /> : null }
+        <div className='card' style={{
+            backgroundColor: props.backgroundColor ? props.backgroundColor : null,
+          }}>
+            { props.cardHeaderImageWide? <img src={props.cardHeaderImageWide} alt="cardHeaderImage" /> : null }
+            { props.cardHeaderImageSquare? <img className='squared-card-image' src={props.cardHeaderImageSquare} alt="cardHeaderImage" /> : null }
             <h2>    {props.heading}  </h2>
                     {props.content}
                     {props.image}

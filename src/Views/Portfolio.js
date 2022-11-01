@@ -5,23 +5,33 @@ import DeveloperImage from './Custom/DeveloperImage'
 import MeanImage from './../Assets/mean-stack.png'
 import MernImage from './../Assets/mern-stack.png'
 import JavaImage from './../Assets/java.png'
+import HandcuffsImage from './../Assets/handcuffs.png'
 import { Carousel } from 'primereact/carousel';
 import './Portfolio.css'
 import LandingText from './Custom/LandingText'
 
 export default function Portfolio() {
   const itemTemplate = (item) => {
-    return <Card verticalAlignedSubHeading = {item.title} verticalAlignedContent = {item.content}/>
+    return <Card cardHeaderImageSquare={item.image} verticalAlignedSubHeading = {item.title} verticalAlignedContent = {item.content}/>
 }
   const projects = [
-    {title: "TBML Implementation",
-    content: "Implemented the state bank's trade based anti money laundering module."},
-    {title: "Connected 4 Life",
-    content: "Developed the backend of a healthcare application that is based on emergency rescue services."},
-    {title: "Human Capital Management",
-    content: "Built the architecture of a Human Resource management system in Java Springboot"},
-    {title: "Attendance Portal",
-    content: "Developed a full stack app for attendance management for a local client"}
+    {
+      title: "TBML Implementation",
+      content: "Implemented the state bank's trade based anti money laundering module leading banks in Pakistan and in China",
+      image: HandcuffsImage
+    },
+    {
+      title: "Connected 4 Life",
+      content: "Developed the backend of a healthcare application that is based on emergency rescue services."
+    },
+    {
+      title: "Human Capital Management",
+      content: "Built the architecture of a Human Resource management system in Java Springboot"
+    },
+    {
+      title: "Attendance Portal",
+      content: "Developed a full stack app for attendance management for a local client"
+    }
   ]
 
   const technologies = [
@@ -47,8 +57,8 @@ export default function Portfolio() {
       <div className='navbar-container'><Navbar/></div>
       <div className='cards'>
             <Card image={<DeveloperImage/>}/>
-            <Card verticalAlignedContent={<LandingText/>} />
-            {technologies.map(item=> <Card cardHeaderImage={item.image} verticalAlignedSubHeading={item.title} verticalAlignedContent={item.content}/>)}
+            <Card backgroundColor="#dcffe4" verticalAlignedContent={<LandingText/>} />
+            {technologies.map(item=> <Card cardHeaderImageWide={item.image} verticalAlignedSubHeading={item.title} verticalAlignedContent={item.content}/>)}
       </div>
       <Carousel value={projects} itemTemplate={itemTemplate} circular={true} numVisible={3} numScroll={3} header={<h2>Projects</h2>}></Carousel>
     </>
