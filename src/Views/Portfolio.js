@@ -6,9 +6,9 @@ import MeanImage from './../Assets/mean-stack.png'
 import MernImage from './../Assets/mern-stack.png'
 import JavaImage from './../Assets/java.png'
 import HandcuffsImage from './../Assets/handcuffs.png'
-import { Carousel } from 'primereact/carousel';
 import './Portfolio.css'
 import LandingText from './Custom/LandingText'
+import TabViewSkills from './Custom/TabViewSkills'
 
 export default function Portfolio() {
   const itemTemplate = (item) => {
@@ -54,13 +54,15 @@ export default function Portfolio() {
 
   return (
     <>
-      <div className='navbar-container'><Navbar/></div>
+      <div className='navbar-container'>
+        <Navbar/>
+      </div>
       <div className='cards'>
             <Card image={<DeveloperImage/>}/>
-            <Card backgroundColor="#dcffe4" verticalAlignedContent={<LandingText/>} />
-            {technologies.map(item=> <Card cardHeaderImageWide={item.image} verticalAlignedSubHeading={item.title} verticalAlignedContent={item.content}/>)}
+            <Card verticalAlignedContent={<LandingText/>} />
+            <Card verticalAlignedFullHeightHeading="My Skillset" />
+            <Card verticalAlignedContent={<TabViewSkills/>}/>
       </div>
-      <Carousel value={projects} itemTemplate={itemTemplate} circular={true} numVisible={3} numScroll={3} header={<h2>Projects</h2>}></Carousel>
     </>
   )
 }

@@ -1,0 +1,17 @@
+.small {
+    min-height: 64px;
+    max-height: 64px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.iconContainer {
+    padding: 10px;
+    text-align: center;
+}
+
+.inline {
+    display: flex;
+    
+}
+

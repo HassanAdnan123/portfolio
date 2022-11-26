@@ -2,11 +2,9 @@
 @import url('./../../../bootstrap/css/bootstrap.min.css');
 
 .card {
-    /* background-color: rgb(241, 241, 241); */
-    border: 0.5px solid rgb(255, 255, 255);
     padding: 1rem;
     margin: 1rem;
-    min-height: 400px;
+    min-height: 500px;
 }
 
 .vertical-aligned {
@@ -17,4 +15,8 @@
 .squared-card-image {
   max-height: 150px;
   max-width: 150px;
+}
+
+.fullHeightText {
+  font-size: 15vh;
 }
