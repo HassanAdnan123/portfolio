@@ -20,8 +20,7 @@ export default function Icon(props) {
   return (
     <div className='iconContainer'>
         <img className='small' 
-            src={image}>
-        </img>
+            src={image} alt="icon"/>
         <p>{props.title}</p>
     </div>
   )
