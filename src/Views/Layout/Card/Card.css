@@ -5,6 +5,8 @@
     padding: 1rem;
     margin: 1rem;
     min-height: 500px;
+    border: 1px solid white;
+    background-color: white;
 }
 
 .vertical-aligned {
@@ -18,5 +20,9 @@
 }
 
 .fullHeightText {
-  font-size: 15vh;
+  font-size: 10vh;
+}
+
+.tabPanel {
+  padding: -50px;
 }

@@ -9,18 +9,25 @@ export default function TabViewSkills() {
   return (
     <div>
         <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} className='tabsMain'>
-            <TabPanel className='inline' header="Frontend">
+            <TabPanel className='inline tabPanel' header="Frontend">
                 <Icon name="angular" title="Angular (8+)"/>
                 <Icon name="react" title="ReactJs" />
                 <Icon name="html" title="HTML" />
+                <Icon name="css" title="CSS" />
 
             </TabPanel>
-            <TabPanel className='inline' header="Backend">
-                
+            <TabPanel className='inline tabPanel' header="Backend">
+                <Icon name="java" title="Java"/>
+                <Icon name="spring" title="Springboot"/>
+                <Icon name="nodejs" title="Node Js"/>
+                <Icon name="csharp" title=".NET"/>
             </TabPanel>
-            <TabPanel className='inline' header="Databases">
+            <TabPanel className='inline tabPanel' header="Databases">
                 <Icon name="mongo" title="MongoDB"/>
-                <Icon name="mysql" title=""/>
+                <Icon name="mysql" title="My SQL"/>
+                <Icon name="postgres" title="postgreSQL"/>
+                <Icon name="sqlserver" title="MS SQL Server"/>
+                <Icon name="oracle" title="PL-SQL"/>
             </TabPanel>
             <TabPanel className='inline' header="Tools">
                 

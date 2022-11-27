@@ -3,9 +3,9 @@ import './../Portfolio.css'
 export default function LandingText(){
     return (
         <div>
-            <h1>
+            <h1 className='landingText'>
                 <code> &lt;code&gt; </code>
-                Hi! I am Hassan, a Full Stack Javascript Developer..
+                    Hi! 👋<br/> &nbsp; I am Hassan, <br/>&nbsp; Full Stack Developer..
                 <code> &lt;code/&gt; </code>
             </h1>
         </div>

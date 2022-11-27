@@ -2,8 +2,7 @@ import './Card.css'
 
 export default function Card(props) {
     return (
-        <div className='card' style={{
-            backgroundColor: props.backgroundColor ? props.backgroundColor : null,}}>
+        <div className='card'>
 
             {/* Card Headers */}
             

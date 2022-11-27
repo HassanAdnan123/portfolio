@@ -53,16 +53,16 @@ export default function Portfolio() {
   ]
 
   return (
-    <>
+    <div className='portfolioContainer'>
       <div className='navbar-container'>
         <Navbar/>
       </div>
       <div className='cards'>
-            <Card image={<DeveloperImage/>}/>
+            <Card backgroundColor='yellow' image={<DeveloperImage/>}/>
             <Card verticalAlignedContent={<LandingText/>} />
-            <Card verticalAlignedFullHeightHeading="My Skillset" />
+            <Card verticalAlignedFullHeightHeading="Tools & Technologies" />
             <Card verticalAlignedContent={<TabViewSkills/>}/>
       </div>
-    </>
+    </div>
   )
 }
