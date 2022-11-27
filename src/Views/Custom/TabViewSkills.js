@@ -9,27 +9,37 @@ export default function TabViewSkills() {
   return (
     <div>
         <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} className='tabsMain'>
-            <TabPanel className='inline tabPanel' header="Frontend">
-                <Icon name="angular" title="Angular (8+)"/>
-                <Icon name="react" title="ReactJs" />
-                <Icon name="html" title="HTML" />
-                <Icon name="css" title="CSS" />
+            <TabPanel header="Frontend">
+                <div className='icon-grid'>
+                    <Icon name="react" title="ReactJs" />
+                    <Icon name="html" title="HTML" />
+                    <Icon name="css" title="CSS" />
+                    <Icon name="angular" title="Angular (8+)"/>
+                </div>
+                
 
             </TabPanel>
-            <TabPanel className='inline tabPanel' header="Backend">
-                <Icon name="java" title="Java"/>
-                <Icon name="spring" title="Springboot"/>
-                <Icon name="nodejs" title="Node Js"/>
-                <Icon name="csharp" title=".NET"/>
+            <TabPanel headerClassName="tabPanel" header="Backend">
+                <div className='icon-grid'>
+                    <Icon name="java" title="Java"/>
+                    <Icon name="spring" title="Springboot"/>
+                    <Icon name="nodejs" title="Node Js"/>
+                    <Icon name="csharp" title=".NET"/>
+                </div>  
             </TabPanel>
-            <TabPanel className='inline tabPanel' header="Databases">
-                <Icon name="mongo" title="MongoDB"/>
-                <Icon name="mysql" title="My SQL"/>
-                <Icon name="postgres" title="postgreSQL"/>
-                <Icon name="sqlserver" title="MS SQL Server"/>
-                <Icon name="oracle" title="PL-SQL"/>
+            <TabPanel header="Databases">
+                <div className='icon-grid'>
+                    <Icon name="mongo" title="MongoDB"/>
+                    <Icon name="mysql" title="My SQL"/>
+                    <Icon name="postgres" title="postgreSQL"/>
+                    <Icon name="sqlserver" title="MS SQL Server"/>
+                    <Icon name="oracle" title="PL-SQL"/>
+                </div>
             </TabPanel>
-            <TabPanel className='inline' header="Tools">
+            <TabPanel header="Tools">
+                <div>
+
+                </div>
                 
             </TabPanel>
         </TabView>

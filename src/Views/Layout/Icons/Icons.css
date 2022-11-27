@@ -1,4 +1,5 @@
 .small {
+    
     min-height: 48px;
     max-height: 48px;
     margin-left: auto;
@@ -10,8 +11,4 @@
     text-align: center;
 }
 
-.inline {
-    display: flex;
-    
-}
 
