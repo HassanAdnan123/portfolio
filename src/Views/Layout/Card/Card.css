@@ -1,5 +1,6 @@
 @import url('./../../../bootstrap/css/bootstrap-grid.min.css');
 @import url('./../../../bootstrap/css/bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Ubuntu:wght@300&display=swap');
 
 .card {
     padding: 1rem;
@@ -25,4 +26,34 @@
 
 .tabPanel {
   padding: -50px;
+}
+
+.cardDescription {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.cardHeading {
+  color: #3da0de;
+  font-size: 40px;
+}
+
+.technologyTags {
+  margin-right: 20px;
+  font-size: 12px;
+  font-weight: 300;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #327fae;
+  margin-top: 40px;
+}
+
+.technologyTagsContainer{
+  display: flex;
+}
+
+.fullWidthImage {
+  width: 400px;
 }

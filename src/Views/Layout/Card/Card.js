@@ -14,10 +14,16 @@ export default function Card(props) {
             }
 
             {/* Card Inner Content */}
-            <h2>{props.heading}</h2>
+            <h2 className='cardHeading'>{props.heading}</h2>
             
-            {props.content}
-
+            <p className='cardDescription'>{props.description}</p>
+            
+            <div className='technologyTagsContainer'>
+                {props.technologies ? 
+                    props.technologies.map((item) => {return <p className='technologyTags'>{item}</p>}) : null
+                }
+            </div>
+        
             {props.image}
 
             {props.fullWidthImage ? 

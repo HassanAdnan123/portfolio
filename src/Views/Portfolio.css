@@ -27,3 +27,20 @@
 .landingText {
     font-size: 50px;
 }
+
+code {
+    color:#3da0de;
+}
+
+.sectionHeaderContainer {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+.sectionHeader {
+    font-size: 70px;
+    margin-top: 100px;
+    margin-bottom: 40px;
+
+}

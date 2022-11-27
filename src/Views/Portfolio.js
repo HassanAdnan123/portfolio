@@ -3,51 +3,35 @@ import Card from './Layout/Card/Card'
 import Navbar from './Layout/Navbar/Navbar'
 import DeveloperImage from './Custom/DeveloperImage'
 import c4life from './../Assets/c4life.jpg'
+import hcm from './../Assets/hcm.jpg'
+import tbaml from './../Assets/tbaml.jpg'
 import './Portfolio.css'
 import LandingText from './Custom/LandingText'
 import TabViewSkills from './Custom/TabViewSkills'
 
 export default function Portfolio() {
-//   const itemTemplate = (item) => {
-//     return <Card cardHeaderImageSquare={item.image} verticalAlignedSubHeading = {item.title} verticalAlignedContent = {item.content}/>
-// }
-  // const projects = [
-  //   {
-  //     title: "TBML Implementation",
-  //     content: "Implemented the state bank's trade based anti money laundering module leading banks in Pakistan and in China",
-  //     image: HandcuffsImage
-  //   },
-  //   {
-  //     title: "Connected 4 Life",
-  //     content: "Developed the backend of a healthcare application that is based on emergency rescue services."
-  //   },
-  //   {
-  //     title: "Human Capital Management",
-  //     content: "Built the architecture of a Human Resource management system in Java Springboot"
-  //   },
-  //   {
-  //     title: "Attendance Portal",
-  //     content: "Developed a full stack app for attendance management for a local client"
-  //   }
-  // ]
 
-  // const technologies = [
-  // {
-  //   title: "MEAN Stack",
-  //   content: "I develop awesome designs using Angular, integrate them with nodejs and connect them to Mongo or MySQL databases.",
-  //   image: MeanImage
-  // },
-  // {
-  //   title: "Java",
-  //   content: "For complex logic and sustainable backend, and for scalable products, I develop in Java Springboot.",
-  //   image: JavaImage
-  // },
-  // {
-  //   title: "MERN Stack",
-  //   content: "For light weight applications having greater focus on UI/UX, I develop in React",
-  //   image: MernImage
-  // }
-  // ]
+  const projects = [
+    {
+      title: "Trade Based Anti-Money Laundering",
+      content: "Helped local and international banks automate the process of screening trade transactions to detect Money Laundering and Fraud",
+      technologies: [".NET", "Java Springboot", "Angular", "Oracle SQL"]
+    },
+    {
+      title: "Connected 4 Life",
+      content: "Improved the response-time of monitoring devices on a healthcare application that provides emergency rescue to heart attack patients",
+      technologies: ["Firebase", "Java Springboot", "Angular", "AWS MQTT"]
+    },
+    {
+      title: "Human Capital Management",
+      content: "Built the backend architecture and frontend of a HR Management System that is a one-stop solution for employers",
+      technologies: ["Angular", "Java Springboot"]
+    },
+    {
+      title: "Attendance Portal",
+      content: "Developed a full stack app for attendance management for a local client"
+    }
+  ]
 
   return (
     <div className='portfolioContainer'>
@@ -55,12 +39,21 @@ export default function Portfolio() {
         <Navbar/>
       </div>
       <div className='cards'>
-            <Card backgroundColor='yellow' image={<DeveloperImage/>}/>
+            <Card image={<DeveloperImage/>}/>
             <Card verticalAlignedContent={<LandingText/>} />
             <Card verticalAlignedFullHeightHeading="Tools & Technologies" />
             <Card verticalAlignedContent={<TabViewSkills/>}/>
-            <Card heading="Connected 4 Life" subheading="Implemented XYZ" />
+      </div>
+      <div className='sectionHeaderContainer'>
+            <h1 className='sectionHeader'>Projects</h1>
+      </div>
+      <div className='cards'>
+            <Card heading={projects[1].title} description={projects[1].content} technologies={projects[1].technologies}/>
             <Card fullWidthImage={c4life} />
+            <Card heading={projects[2].title} description={projects[2].content} technologies={projects[2].technologies} />
+            <Card fullWidthImage={hcm} />
+            <Card heading={projects[0].title} description={projects[0].content} technologies={projects[0].technologies} />
+            <Card fullWidthImage={tbaml} />
       </div>
     </div>
   )
