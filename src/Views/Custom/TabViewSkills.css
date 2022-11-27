@@ -33,6 +33,12 @@
     padding: 10px !important;
 }
 
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none !important;
+}
+
 .p-tabview-selected .p-tabview-nav-link .p-tabview-title{
     color: #3da0de;
     /* border-bottom: 2px solid lightcoral; */
