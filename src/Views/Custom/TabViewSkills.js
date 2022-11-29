@@ -12,9 +12,10 @@ export default function TabViewSkills() {
             <TabPanel header="Frontend">
                 <div className='icon-grid'>
                     <Icon name="react" title="ReactJs" />
+                    <Icon name="angular" title="Angular (8+)"/>
+                    <Icon name="ionic" title="Ionic"/>
                     <Icon name="html" title="HTML" />
                     <Icon name="css" title="CSS" />
-                    <Icon name="angular" title="Angular (8+)"/>
                 </div>
                 
 
@@ -37,8 +38,11 @@ export default function TabViewSkills() {
                 </div>
             </TabPanel>
             <TabPanel header="Tools">
-                <div>
-
+                <div className='icon-grid'>
+                    <Icon name="vscode" title="VS Code"/>
+                    <Icon name="intellij" title="IntelliJ Idea"/>
+                    <Icon name="github" title="Github Desktop"/>
+                    <Icon name="dbeaver" title="Dbeaver DB Client"/>
                 </div>
                 
             </TabPanel>

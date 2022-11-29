@@ -27,7 +27,7 @@ export default function Card(props) {
             {props.image}
 
             {props.fullWidthImage ? 
-                <img className='fullWidth' src={props.fullWidthImage} alt="fullWidthImage" /> : null
+                <img className={props.dropShadow ? 'fullWidth dropShadow' : 'fullWidth'} src={props.fullWidthImage} alt="fullWidthImage" /> : null
             }
             
             {/* Card Vertically Aligned Content */}

@@ -57,3 +57,8 @@
 .fullWidthImage {
   width: 400px;
 }
+
+.dropShadow {
+  box-shadow: 0px 4px 20px #eeeeee;
+  border: 1px solid #f3f3f3;
+}

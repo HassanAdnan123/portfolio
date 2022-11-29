@@ -18,12 +18,12 @@ export default function Portfolio() {
       technologies: [".NET", "Java Springboot", "Angular", "Oracle SQL"]
     },
     {
-      title: "Connected 4 Life",
+      title: "Emergency Response System (Web-App)",
       content: "Improved the response-time of monitoring devices on a healthcare application that provides emergency rescue to heart attack patients",
       technologies: ["Firebase", "Java Springboot", "Angular", "AWS MQTT"]
     },
     {
-      title: "Human Capital Management",
+      title: "Employee Management System",
       content: "Built the backend architecture and frontend of a HR Management System that is a one-stop solution for employers",
       technologies: ["Angular", "Java Springboot"]
     },
@@ -49,11 +49,11 @@ export default function Portfolio() {
       </div>
       <div className='cards'>
             <Card heading={projects[1].title} description={projects[1].content} technologies={projects[1].technologies}/>
-            <Card fullWidthImage={c4life} />
+            <Card fullWidthImage={c4life} dropShadow = "true" />
             <Card heading={projects[2].title} description={projects[2].content} technologies={projects[2].technologies} />
-            <Card fullWidthImage={hcm} />
+            <Card fullWidthImage={hcm} dropShadow = "true" />
             <Card heading={projects[0].title} description={projects[0].content} technologies={projects[0].technologies} />
-            <Card fullWidthImage={tbaml} />
+            <Card fullWidthImage={tbaml} dropShadow = "true" />
       </div>
     </div>
   )
