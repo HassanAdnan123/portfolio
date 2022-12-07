@@ -1,5 +1,5 @@
 .navbar-buttons{
-    margin-top: 18px;
+    margin: 18px;
 }
 
 .navbar-buttons > button {
@@ -25,6 +25,16 @@
     margin-right: 10px;
     font-weight: 800;
     color: lightslategrey;
+}
+
+@media only screen and (width <= 600px) { 
+    .navbar-buttons{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    
 }
 
 
