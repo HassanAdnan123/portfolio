@@ -54,8 +54,8 @@ export default function Portfolio() {
   return (
     <div className='portfolioContainer'>
       <div className='navbar-container'>
-        <Navbar bg="light" variant="light" fixed="top">
-          <Container>
+        <Navbar className='navbar-settings' bg="light" variant="light" fixed="top">
+          <Container className='nav-container'>
             <Nav className="m-auto ">
               <Link href="#me"
                 to="me"
