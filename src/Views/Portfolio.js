@@ -94,8 +94,8 @@ export default function Portfolio() {
         </Navbar>
       </div>
       <div className='cards' id="me">
-        <Card image={<DeveloperImage />} />
         <Card verticalAlignedContent={<LandingText />} />
+        <Card image={<DeveloperImage />} />
       </div>
       <div className='cards' id="technology">
         <Card verticalAlignedFullHeightHeading="Tools & Technology" />

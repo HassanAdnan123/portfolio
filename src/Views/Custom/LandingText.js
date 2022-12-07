@@ -12,10 +12,10 @@ export default function LandingText(){
                     startDelay={100}
                     cursorColor="grey"
                     multiText={[
-                        'I am a Full Stack Developer.',
-                        'I explore wonders of physics casually 🧑‍🔬',
-                        'I love Javascript 🤩',
+                        'I\'m a Full-Stack Developer.👨‍💻',
+                        'I love Science🔬 & Scientists🧑‍🔬',
                         'I read History in my leisure 🌍',
+                        'I love Javascript 🤩'
                       ]}
                     multiTextDelay={5000}
                     typeSpeed={50}
