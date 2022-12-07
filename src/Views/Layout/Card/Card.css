@@ -64,9 +64,9 @@
   border: 1px solid #f3f3f3;
 }
 
-@media only screen and (max-width: 600px) { 
+@media only screen and (width <= 600px) { 
   .fullHeightText {
-    font-size: 7.5vh;
+    font-size: 7vh;
   }
 
   .card {

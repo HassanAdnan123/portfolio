@@ -98,7 +98,7 @@ export default function Portfolio() {
         <Card verticalAlignedContent={<LandingText />} />
       </div>
       <div className='cards' id="technology">
-        <Card verticalAlignedFullHeightHeading="Tools & Technologies" />
+        <Card verticalAlignedFullHeightHeading="Tools & Technology" />
         <Card verticalAlignedContent={<TabViewSkills />} />
       </div>
       <div id="work">
