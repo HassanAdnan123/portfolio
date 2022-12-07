@@ -30,7 +30,7 @@
 
 .p-tabview-nav-link {
     background-color: #d4e9f6 !important;
-    padding: 10px !important;
+    padding: 8px !important;
 }
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {

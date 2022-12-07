@@ -6,6 +6,11 @@
     margin-right: auto;
 }
 
+.technologyIcon {
+    min-height: 40px;
+    max-height: 40px;
+}
+
 .iconContainer {
     padding: 10px;
     text-align: center;

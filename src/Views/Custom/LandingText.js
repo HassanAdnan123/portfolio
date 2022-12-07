@@ -17,9 +17,9 @@ export default function LandingText(){
                         'I love Javascript 🤩',
                         'I read History in my leisure 🌍',
                       ]}
-                    multiTextDelay={1000}
-                    typeSpeed={100}
-                    eraseSpeed={100} />
+                    multiTextDelay={5000}
+                    typeSpeed={50}
+                    eraseSpeed={50} />
                 {/* </span> */}
                 <code> &lt;code/&gt; </code>
             </h1>

@@ -18,6 +18,12 @@ export default function Icon(props) {
 
 
   return (
+    props.technologyIcon ?
+    <div className='iconContainer'>
+        <img className='technologyIcon' 
+            src={image} alt="icon"/>
+    </div>
+    : 
     <div className='iconContainer'>
         <img className='small' 
             src={image} alt="icon"/>

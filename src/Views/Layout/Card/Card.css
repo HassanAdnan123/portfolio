@@ -50,6 +50,7 @@
   margin-top: 40px;
 }
 
+
 .technologyTagsContainer{
   display: flex;
 }
@@ -61,4 +62,19 @@
 .dropShadow {
   box-shadow: 0px 4px 20px #eeeeee;
   border: 1px solid #f3f3f3;
+}
+
+@media only screen and (max-width: 600px) { 
+  .fullHeightText {
+    font-size: 7.5vh;
+  }
+
+  .card {
+    min-height: 400px;
+  }
+
+  .cardHeading {
+    font-size: 35px;
+  }
+  
 }

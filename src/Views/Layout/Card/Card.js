@@ -20,8 +20,11 @@ export default function Card(props) {
             
             <div className='technologyTagsContainer'>
                 {props.technologies ? 
-                    props.technologies.map((item) => {return <p className='technologyTags'>{item}</p>}) : null
+                    props.technologies.map((item) => {return <p className='technologyTags'>{item}</p>}) :
+                 props.technologyIcons ?
+                    props.technologyIcons.map((item) => {return <p className='technologyIcons'>{item}</p>}) : null
                 }
+
             </div>
         
             {props.image}
