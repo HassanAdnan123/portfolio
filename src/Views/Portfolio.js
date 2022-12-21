@@ -11,6 +11,8 @@ import TabViewSkills from './Custom/TabViewSkills'
 import {Nav, Navbar, Container} from 'react-bootstrap';
 import { Link } from 'react-scroll';
 import Icon from './Layout/Icons/Icon';
+import { db } from '../utils/firebase'
+import { ref, set} from 'firebase/database'
 
 export default function Portfolio() {
 
@@ -50,6 +52,8 @@ export default function Portfolio() {
       content: "Developed a full stack app for attendance management for a local client"
     }
   ]
+
+
 
   return (
     <div className='portfolioContainer'>
@@ -112,6 +116,14 @@ export default function Portfolio() {
           <Card fullWidthImage={hcm} dropShadow="true" />
           <Card heading={projects[0].title} description={projects[0].content} technologyIcons={projects[0].technologyIcons} />
           <Card fullWidthImage={tbaml} dropShadow="true" />
+          <button onClick={()=> {
+              
+              set(ref(db, 'users'), {
+                firstName: "hassan",
+                lastName: "adnan"
+              });
+
+          }}>Firebaser</button>
         </div>
       </div>
     </div>
