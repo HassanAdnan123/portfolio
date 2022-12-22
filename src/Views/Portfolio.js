@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from './Layout/Card/Card'
 import DeveloperImage from './Custom/DeveloperImage'
 import c4life from './../Assets/c4life.jpg'
@@ -12,9 +12,25 @@ import {Nav, Navbar, Container} from 'react-bootstrap';
 import { Link } from 'react-scroll';
 import Icon from './Layout/Icons/Icon';
 import { db } from '../utils/firebase'
-import { ref, set} from 'firebase/database'
+import { ref, set, child, get} from 'firebase/database'
 
 export default function Portfolio() {
+
+  const [liked, setLiked] = useState(false)
+  const [heartCounter, setHeartCounter] = useState(0)
+
+  useEffect(()=>{
+    const dbRef = ref(db);
+    get(child(dbRef, `likeCounter`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        setHeartCounter(snapshot.val().heart)
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  })
+
 
   const projects = [
     {
@@ -93,6 +109,16 @@ export default function Portfolio() {
                 smooth={true}
                 offset={-70}
                 duration={500} >Contact</Link>
+              <Link           
+                className="nav-link navbar-buttons"
+                onClick={()=> {
+              
+                  set(ref(db, 'likeCounter'), {
+                    heart: heartCounter+1
+                  });
+                  setHeartCounter(heartCounter+1)
+                  }}
+                ><button className='clearFormatting'>{heartCounter}❤️</button></Link>
             </Nav>
           </Container>
         </Navbar>
@@ -116,14 +142,6 @@ export default function Portfolio() {
           <Card fullWidthImage={hcm} dropShadow="true" />
           <Card heading={projects[0].title} description={projects[0].content} technologyIcons={projects[0].technologyIcons} />
           <Card fullWidthImage={tbaml} dropShadow="true" />
-          <button onClick={()=> {
-              
-              set(ref(db, 'users'), {
-                firstName: "hassan",
-                lastName: "adnan"
-              });
-
-          }}>Firebaser</button>
         </div>
       </div>
     </div>

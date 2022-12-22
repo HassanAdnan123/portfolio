@@ -54,3 +54,13 @@ code {
     
     }
 }
+
+.clearFormatting{
+    background-color: white;
+    border: none;
+    transition: 0.3s;
+}
+
+.clearFormatting:hover {
+    background-color: #3da0de;
+}
