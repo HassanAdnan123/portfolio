@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import Overlay from 'react-bootstrap/Overlay';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Button from 'react-bootstrap/Button';
 import Card from './Layout/Card/Card'
 import DeveloperImage from './Custom/DeveloperImage'
 import c4life from './../Assets/c4life.jpg'
@@ -16,12 +19,14 @@ import { ref, set, child, get} from 'firebase/database'
 
 export default function Portfolio() {
 
-  const [liked, setLiked] = useState(false)
+  const target = useRef(null);
+  const [show, setShow] = useState(false);
+  const [username, setUsername] = useState('')
   const [heartCounter, setHeartCounter] = useState(0)
 
   useEffect(()=>{
     const dbRef = ref(db);
-    get(child(dbRef, `likeCounter`)).then((snapshot) => {
+    get(child(dbRef, `likeCounterDev`)).then((snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
         setHeartCounter(snapshot.val().heart)
@@ -111,14 +116,28 @@ export default function Portfolio() {
                 duration={500} >Contact</Link>
               <Link           
                 className="nav-link navbar-buttons"
-                onClick={()=> {
+                // onClick={()=> {
               
-                  set(ref(db, 'likeCounter'), {
-                    heart: heartCounter+1
-                  });
-                  setHeartCounter(heartCounter+1)
-                  }}
-                ><button className='clearFormatting'>{heartCounter}❤️</button></Link>
+                //   set(ref(db, 'likeCounterDev'), {
+                //     heart: heartCounter+1
+                //   });
+                //   setHeartCounter(heartCounter+1)
+                //   }}
+                ><button ref={target} onClick={() => setShow(!show)} className='clearFormatting'>❤️{heartCounter}</button>
+                
+                <Overlay target={target.current} show={show} placement="bottom">
+                  {(props) => (
+                    <Tooltip id="overlay-example" {...props}>
+                      Your Name:
+                      <input type="text" onChange={(event)=>{
+                          setUsername(event.target.value)
+                      }}/>
+                    <Button>Submit</Button>
+                    </Tooltip>
+                  )}
+                </Overlay>
+
+                </Link>
             </Nav>
           </Container>
         </Navbar>
