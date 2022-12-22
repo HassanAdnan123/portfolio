@@ -16,7 +16,6 @@ import { ref, set, child, get} from 'firebase/database'
 
 export default function Portfolio() {
 
-  const [liked, setLiked] = useState(false)
   const [heartCounter, setHeartCounter] = useState(0)
 
   useEffect(()=>{
