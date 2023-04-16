@@ -1,7 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&family=Inter:wght@300&display=swap');
 
+/* Default Colors: */
+/* Blue: #3da0de */
+/* Blog Yellow Heading: #dec33d */
+
 *{
     font-family: 'IBM Plex Sans';
+}
+
+.topCard {
+    margin-top: 600px;
 }
 
 .portfolioContainer{
@@ -24,12 +32,25 @@
     .cards { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (min-width: 1500px) {
+    .cards { 
+        grid-template-columns: repeat(2, 1fr);
+        margin-left: 300px;
+    }
+}
+
+
+
 .landingText {
     font-size: 42px;
 }
 
 code {
-    color:#3da0de;
+    color:#3dbbde;
+}
+
+code.darkMode {
+    color: #61cce9 !important;
 }
 
 .sectionHeaderContainer {
@@ -63,4 +84,31 @@ code {
 
 .clearFormatting:hover {
     background-color: #3da0de;
+}
+
+.footerContent {
+    background-color: #ffffff;
+    padding: 5px 40px 5px 40px;
+    border: 1px solid #ffffff;
+    border-radius: 35px;
+    box-shadow: 0px 2px 5px #ebebeb;
+}
+#footer {
+    display: flex;
+    justify-content: center;
+}
+
+.author {
+    border: none;
+    background-color: inherit;
+    color: #3da0de;
+    transition: 0.5s;
+}
+.author:hover {
+    color: #0c306d;
+}
+
+.clickableBlog {
+    border: none;
+    background-color: inherit;
 }

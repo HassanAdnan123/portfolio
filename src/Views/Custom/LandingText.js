@@ -7,20 +7,22 @@ export default function LandingText(){
         <div>
             <h1 className='landingText'>
                 <code> &lt;code&gt; </code>
-                    <br/> Hi! 👋 I am Hassan, <TypeWriterEffect
-                    textStyle={{ fontFamily: 'IBM Plex Sans', fontSize: '42px' }}
-                    startDelay={100}
-                    cursorColor="grey"
-                    multiText={[
-                        'I\'m a Full-Stack Developer.👨‍💻',
-                        'I love Science🔬 & Scientists🧑‍🔬',
-                        'I read History in my leisure 🌍',
-                        'I love Javascript 🤩'
-                      ]}
-                    multiTextDelay={5000}
-                    typeSpeed={50}
-                    eraseSpeed={50} />
-                {/* </span> */}
+                    <br/> Hi! 👋 I am Hassan, 
+                    <TypeWriterEffect
+                        className='landingText'
+                        textStyle={{ fontFamily: 'IBM Plex Sans', fontSize: '42px' }}
+                        startDelay={100}
+                        cursorColor="grey"
+                        multiText={[
+                            'I\'m a Full-Stack Developer.👨‍💻',
+                            'I hate bugs 🪲 both real and in software 🥲',
+                            'My dream is to write 100% clean code. 🥰',
+                            'Java & Javascript are my forte ❤️'
+                        ]}
+                        multiTextDelay={5000}
+                        typeSpeed={50}
+                        eraseSpeed={50}
+                    />
                 <code> &lt;code/&gt; </code>
             </h1>
         </div>

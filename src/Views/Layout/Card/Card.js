@@ -1,8 +1,9 @@
 import './Card.css'
+import linkedInYellow from '../../../Assets/Icons/linkedinyellow.png'
 
 export default function Card(props) {
     return (
-        <div className='card'>
+        <div className={props.isBlogPost ? 'blogCard' : 'card'}>
 
             {/* Card Headers */}
             
@@ -14,7 +15,7 @@ export default function Card(props) {
             }
 
             {/* Card Inner Content */}
-            <h2 className='cardHeading'>{props.heading}</h2>
+            <h2 className={props.isBlogPost ? 'cardHeading blogHeading': 'cardHeading'}>{props.heading}</h2>
             
             <p className='cardDescription'>{props.description}</p>
             
@@ -24,7 +25,12 @@ export default function Card(props) {
                  props.technologyIcons ?
                     props.technologyIcons.map((item) => {return <p className='technologyIcons'>{item}</p>}) : null
                 }
-
+                {props.isBlogPost ? 
+                <div className='viewPost'> 
+                    <p className='viewPostText'>
+                        View Post <img className='linkedInIcon' src={linkedInYellow} alt="linkedin"/> 
+                    </p> 
+                </div> : null}
             </div>
         
             {props.image}
