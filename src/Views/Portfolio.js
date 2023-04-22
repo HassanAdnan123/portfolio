@@ -38,6 +38,8 @@ export default function Portfolio() {
   const feedbackCardText = 'If you have an awesome idea, let\'s put my development skills and your creativeness on the table'
   +' and build a great application together! 🙌'
 
+  const socialsText = 'You can find me here as well:'
+
 
   const projects = [
     {
@@ -45,7 +47,7 @@ export default function Portfolio() {
       content: "Helped local and international banks automate the process of screening trade transactions to detect Money Laundering and Fraud",
       technologies: [".NET", "Java Springboot", "Angular", "Oracle SQL"],
       technologyIcons: [
-        <Icon technologyIcon="true" name="csharp" title="" />,
+        <Icon technologyIcon="true" name="dotnet" title="" />,
         <Icon technologyIcon="true" name="angular" title="" />,
         <Icon technologyIcon="true" name="spring" title="" />,
         <Icon technologyIcon="true" name="oracle" title="" />
@@ -101,6 +103,25 @@ export default function Portfolio() {
         <Icon technologyIcon="true" name="js" title="" />
       ]
     }
+  ]
+
+  const socialHandles = [
+    {
+      title: "LinkedIn",
+      link: "https://www.linkedin.com/in/hassan-adnanpk/",
+      icon: 'linkedin'
+    },
+    {
+      title: "Twitter",
+      link: "https://twitter.com/luminous_diode",
+      icon: 'twitter'
+    },
+    {
+      title: "Github",
+      link: "https://github.com/HassanAdnan123",
+      icon: 'github'
+    }
+
   ]
 
 
@@ -170,13 +191,13 @@ export default function Portfolio() {
         <Card className='topCard' verticalAlignedContent={<LandingText />} />
         <Card image={<DeveloperImage />} />
       </div>
-      <div className='cards' id="technology">
-        <Card verticalAlignedFullHeightHeading="Tools & Technology" />
+      <div className='blockCard' id="technology">
+        {/* <Card verticalAlignedFullHeightHeading="Tools & Technology" /> */}
         <Card verticalAlignedContent={<TabViewSkills />} />
       </div>
       <div id="work">
         <div className='sectionHeaderContainer'>
-          <h1 className='sectionHeader' >Top Projects</h1>
+          <h1 className='sectionHeader' >See what I've built..</h1>
         </div>
         <div className='cards'> {
           projects.map((item)=> {
@@ -194,12 +215,13 @@ export default function Portfolio() {
       </div>
       <div id="blogs">
         <div className='sectionHeaderContainer'>
-          <h1 className='sectionHeader' >Blogs/Content</h1>
+          <h1 className='sectionHeader' >I also write about tech..</h1>
         </div>
         <div className='cards'>{
           blogs.map((item)=> {
             return <button className='clickableBlog' onClick={()=> openInNewTab(item.linkToPost)}>
-               <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={item.technologyIcons} /> </button>
+                      <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={item.technologyIcons} /> 
+                  </button>
           })}
         </div>
       </div>
@@ -208,7 +230,20 @@ export default function Portfolio() {
           <h1 className='sectionHeader' >Let's have ☕</h1>
         </div>
         <div className='cards'>
-          <Card heading={''} description={feedbackCardText} />
+          <Card heading={''} 
+                description={feedbackCardText} 
+                bottomAlignedDescription={
+                  <>
+                    {socialsText}
+                    <br/>
+                    {socialHandles.map((socialHandle)=>{
+                      return <button className='socials' onClick={()=> openInNewTab(socialHandle.link)}>
+                        <Icon technologyIcon="true" name={'sc-'+socialHandle.icon} title="" />
+                      </button>
+                    })}
+                  </>
+                } 
+          />
           <Form/>
         </div>
       </div>

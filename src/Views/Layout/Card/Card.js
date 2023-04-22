@@ -48,6 +48,10 @@ export default function Card(props) {
                 {props.verticalAlignedContent}
             
             </div>
+            {props.bottomAlignedDescription ? 
+                <div className='bottom-aligned'>
+                    <p className='bottomAlignedText'>{props.bottomAlignedDescription}</p>
+                </div> : null}
         </div>
     )
 }

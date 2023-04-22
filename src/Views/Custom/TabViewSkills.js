@@ -11,6 +11,7 @@ export default function TabViewSkills() {
         <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} className='tabsMain'>
             <TabPanel header="Frontend">
                 <div className='icon-grid'>
+                    <Icon name="js" title="Javascript" />
                     <Icon name="react" title="ReactJs" />
                     <Icon name="angular" title="Angular (8+)"/>
                     <Icon name="ionic" title="Ionic"/>
@@ -23,9 +24,11 @@ export default function TabViewSkills() {
             <TabPanel headerClassName="tabPanel" header="Backend">
                 <div className='icon-grid'>
                     <Icon name="java" title="Java"/>
-                    <Icon name="spring" title="Springboot"/>
+                    <Icon name="spring" title="Spring MVC"/>
+                    <Icon name="springboot" title="Springboot"/>
                     <Icon name="nodejs" title="Node Js"/>
-                    <Icon name="csharp" title=".NET"/>
+                    <Icon name="python" title="Python / Django"/>
+                    <Icon name="dotnet" title=".NET MVC"/>
                 </div>  
             </TabPanel>
             <TabPanel header="Databases">
@@ -41,8 +44,9 @@ export default function TabViewSkills() {
                 <div className='icon-grid'>
                     <Icon name="vscode" title="VS Code"/>
                     <Icon name="intellij" title="IntelliJ Idea"/>
-                    <Icon name="github" title="Github Desktop"/>
+                    <Icon name="github" title="Github"/>
                     <Icon name="dbeaver" title="Dbeaver DB Client"/>
+                    <Icon name="postman" title="Postman"/>
                 </div>
                 
             </TabPanel>

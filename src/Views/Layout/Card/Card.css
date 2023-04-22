@@ -39,6 +39,12 @@
   font-weight: 300;
 }
 
+.bottomAlignedText {
+  margin-bottom: 60px;
+  font-size: 30px;
+  font-weight: 300;
+}
+
 .cardHeading {
   color: #3da0de;
   font-size: 40px;
