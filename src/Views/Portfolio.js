@@ -23,13 +23,12 @@ export default function Portfolio() {
     const dbRef = ref(db);
     get(child(dbRef, `likeCounter`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         setHeartCounter(snapshot.val().heart)
       }
     }).catch((error) => {
       console.error(error);
     });
-  })
+  },[])
 
   const openInNewTab = (url) => {
     window.open(url, '_blank', 'noreferrer');
