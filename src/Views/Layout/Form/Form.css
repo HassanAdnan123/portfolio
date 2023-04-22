@@ -67,3 +67,16 @@
 
   
 }
+.responseMessage {
+  font-weight: 200;
+  margin-top: 20px;
+}
+.successText {
+
+  color: rgb(51, 159, 51);
+}
+
+.errorText {
+
+  color: rgb(205, 104, 46);
+}
