@@ -6,13 +6,6 @@
 /* Blue: #3da0de */
 /* Blog Yellow Heading: #dec33d */
 
-.card {
-    padding: 1rem;
-    margin: 1rem;
-    min-height: 500px;
-    border: 1px solid white;
-    background-color: white;
-}
 
 .formInputLabel {
   font-size: larger;
@@ -50,23 +43,6 @@
   background-color: #2c7fb3;
 }
 
-@media only screen and (width < 600px) { 
-
-  .card {
-    min-height: 400px;
-  }
-  
-}
-
-@media only screen and (width >= 1500px) { 
-
-  .card {
-    min-height: 600px;
-    min-width: 850px;
-  }
-
-  
-}
 .responseMessage {
   font-weight: 200;
   margin-top: 20px;

@@ -80,9 +80,17 @@
   border: 1px solid #f3f3f3;
 }
 
-@media only screen and (width < 600px) { 
+@media only screen and (max-width: 600px) { 
   .fullHeightText {
     font-size: 7vh;
+  }
+
+  .cardDescription{
+    font-size: 24px;
+  }
+
+  .bottomAlignedText{
+    font-size: 24px;
   }
 
   .card {
@@ -100,19 +108,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-@media only screen and (width >= 1500px) { 
-
-  .card {
-    min-height: 600px;
-    min-width: 850px;
-  }
-
-  .cardHeading {
-    font-size: 45px;
-  }
-  
 }
 
 .blogCard {

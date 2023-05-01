@@ -40,15 +40,6 @@
     .cards { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (min-width: 1500px) {
-    .cards { 
-        grid-template-columns: repeat(2, 1fr);
-        margin-left: 300px;
-    }
-}
-
-
-
 .landingText {
     font-size: 42px;
 }
@@ -75,7 +66,7 @@ code.darkMode {
 }
 
 
-@media only screen and (width <= 600px) { 
+@media only screen and (width < 600px) { 
     .sectionHeader {
         font-size: 40px;
         margin-top: 100px;
@@ -92,6 +83,12 @@ code.darkMode {
 
 .clearFormatting:hover {
     background-color: #3da0de;
+}
+
+.liked{
+    background-color: white;
+    border: none;
+    color: red;
 }
 
 .footerContent {

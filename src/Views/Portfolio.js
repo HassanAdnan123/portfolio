@@ -20,6 +20,8 @@ export default function Portfolio() {
   const [heartCounter, setHeartCounter] = useState(0)
 
   useEffect(() => {
+
+    // firebase like count
     const dbRef = ref(db);
     get(child(dbRef, `likeCounter`)).then((snapshot) => {
       if (snapshot.exists()) {
@@ -179,9 +181,11 @@ export default function Portfolio() {
                   set(ref(db, 'likeCounter'), {
                     heart: heartCounter + 1
                   });
+                  localStorage.setItem('likedStatus', JSON.stringify(true));
                   setHeartCounter(heartCounter + 1)
-                }}
-              ><button className='clearFormatting'>{heartCounter}❤️</button></Link>
+                }}>   
+                    <button className="clearFormatting">{heartCounter}❤️</button>
+                </Link>
             </Nav>
           </Container>
         </Navbar>
@@ -214,7 +218,7 @@ export default function Portfolio() {
       </div>
       <div id="blogs">
         <div className='sectionHeaderContainer'>
-          <h1 className='sectionHeader' >I also write about tech..</h1>
+          <h1 className='sectionHeader' >Also a tech writer..</h1>
         </div>
         <div className='cards'>{
           blogs.map((item)=> {
@@ -229,6 +233,7 @@ export default function Portfolio() {
           <h1 className='sectionHeader' >Let's have ☕</h1>
         </div>
         <div className='cards'>
+          <Form/>
           <Card heading={''} 
                 description={feedbackCardText} 
                 bottomAlignedDescription={
@@ -243,7 +248,6 @@ export default function Portfolio() {
                   </>
                 } 
           />
-          <Form/>
         </div>
       </div>
       <div id="footer">
