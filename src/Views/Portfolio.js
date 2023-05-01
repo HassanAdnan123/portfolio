@@ -251,7 +251,9 @@ export default function Portfolio() {
         </div>
       </div>
       <div id="footer">
-        <p className='footerContent'> Made in React with ❤️ by <button className='author' onClick={()=> openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}> Hassan Adnan </button> </p>
+        <p className='footerContent'> Made in React with ❤️ by 
+                    <button className='author' onClick={()=> openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}> Hassan Adnan </button>
+             ◾ Dark mode coming soon :) </p>
       </div>
     </div>
   )
