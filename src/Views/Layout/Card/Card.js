@@ -1,6 +1,5 @@
 import './Card.css'
 import linkedInYellow from '../../../Assets/Icons/linkedinyellow.png'
-import Link from 'react-scroll';
 
 export default function Card(props) {
     return (
@@ -49,7 +48,6 @@ export default function Card(props) {
                 {props.verticalAlignedContent}
             
             </div>
-            
             {props.bottomAlignedDescription ? 
                 <div className='bottom-aligned'>
                     <p className='bottomAlignedText'>{props.bottomAlignedDescription}</p>

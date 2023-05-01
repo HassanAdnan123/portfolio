@@ -127,13 +127,3 @@ code.darkMode {
     border: none;
     background-color: inherit;
 }
-
-.resumeBtn{
-    text-decoration: none;
-    font-size: 20px;
-    color: #dec33d;
-    transition: 0.5s;
-  }
-  .resumeBtn:hover{
-    color: #9b882a;
-  }
