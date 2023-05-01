@@ -39,7 +39,7 @@ export default function Portfolio() {
   const feedbackCardText = 'If you have an awesome idea, let\'s put my development skills and your creativeness on the table'
   +' and build a great application together! 🙌'
 
-  const socialsText = 'You can find me here as well:'
+  const socialsText = 'Find me here:'
 
 
   const projects = [
@@ -191,7 +191,14 @@ export default function Portfolio() {
         </Navbar>
       </div>
       <div className='cards' id="me">
-        <Card className='topCard' verticalAlignedContent={<LandingText />} />
+        <Card className='topCard' 
+              verticalAlignedContent={<LandingText />}
+              bottomAlignedDescription={
+                <>
+                  <a className='resumeBtn' href='/files/Hassan_Adnan_Resume.pdf' download> 📃 Download Resume</a>
+                </>
+              }
+        />
         <Card image={<DeveloperImage />} />
       </div>
       <div className='blockCard' id="technology">
@@ -235,10 +242,15 @@ export default function Portfolio() {
         <div className='cards'>
           <Form/>
           <Card heading={''} 
-                description={feedbackCardText} 
+                description={feedbackCardText}
+                verticalAlignedContent={
+                  <>
+                    <a className='resumeBtn' href='/files/Hassan_Adnan_Resume.pdf' download> 📃 Download Resume</a>
+                  </>
+                }
                 bottomAlignedDescription={
                   <>
-                    {socialsText}
+                    {/* <a className='resumeBtn' href='/files/Hassan_Adnan_Resume.pdf' download>Download my Resume</a> */}
                     <br/>
                     {socialHandles.map((socialHandle)=>{
                       return <button className='socials' onClick={()=> openInNewTab(socialHandle.link)}>
@@ -246,7 +258,8 @@ export default function Portfolio() {
                       </button>
                     })}
                   </>
-                } 
+                }
+                showResumeDownloadBtn="true" 
           />
         </div>
       </div>
