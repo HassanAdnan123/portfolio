@@ -205,6 +205,7 @@ export default function Portfolio() {
                   set(ref(db, 'likeCounter'), {
                     heart: heartCounter + 1
                   });
+                  setHeartCounter(heartCounter+1)
                 }}>   
                     <button disabled={liked} className={liked ? "clearFormatting likeDisabled" : "clearFormatting"}>{heartCounter}❤️</button>
                 </Link>

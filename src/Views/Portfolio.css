@@ -133,7 +133,7 @@ code.darkMode {
 }
 
 .disabled:hover {
-    background-color: rgb(219, 219, 219);
+    background-color: rgb(255, 255, 255);
 }
 button.likeDisabled {
     color: rgb(228, 107, 107);
