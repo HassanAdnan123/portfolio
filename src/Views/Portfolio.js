@@ -15,9 +15,31 @@ import { db } from '../utils/firebase'
 import { ref, set, child, get } from 'firebase/database'
 import Form from './Layout/Form/Form'
 
+const useLocalStorage = (key, initialValue) => {
+  // State to store our value
+  const [value, setValue] = useState(() => {
+    // Check if a value exists in local storage
+    const storedValue = localStorage.getItem(key);
+    return storedValue ? JSON.parse(storedValue) : initialValue;
+  });
+
+  // Update the value in local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+
+  return [value, setValue];
+};
+
+
 export default function Portfolio() {
 
   const [heartCounter, setHeartCounter] = useState(0)
+  const [liked, setLiked] = useLocalStorage('liked', false);
+
+  const setLikedInLocalStorage = (event) => {
+    setLiked(true);
+  };
 
   useEffect(() => {
 
@@ -174,17 +196,17 @@ export default function Portfolio() {
                 smooth={true}
                 offset={-70}
                 duration={500} >Contact</Link>
-              <Link
-                className="nav-link navbar-buttons"
+              <Link disabled={liked}
+                className={liked ? "nav-link navbar-buttons disabled":"nav-link navbar-buttons"}
                 onClick={() => {
 
+                  setLikedInLocalStorage()
+                  
                   set(ref(db, 'likeCounter'), {
                     heart: heartCounter + 1
                   });
-                  localStorage.setItem('likedStatus', JSON.stringify(true));
-                  setHeartCounter(heartCounter + 1)
                 }}>   
-                    <button className="clearFormatting">{heartCounter}❤️</button>
+                    <button disabled={liked} className={liked ? "clearFormatting likeDisabled" : "clearFormatting"}>{heartCounter}❤️</button>
                 </Link>
             </Nav>
           </Container>

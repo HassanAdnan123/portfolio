@@ -127,3 +127,14 @@ code.darkMode {
     border: none;
     background-color: inherit;
 }
+
+.disabled {
+    transition: 0s;
+}
+
+.disabled:hover {
+    background-color: rgb(219, 219, 219);
+}
+button.likeDisabled {
+    color: rgb(228, 107, 107);
+}
