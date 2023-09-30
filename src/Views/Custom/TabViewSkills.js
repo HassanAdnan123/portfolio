@@ -26,7 +26,7 @@ export default function TabViewSkills() {
                     <Icon name="java" title="Java"/>
                     <Icon name="spring" title="Spring MVC"/>
                     <Icon name="springboot" title="Springboot"/>
-                    <Icon name="nodejs" title="Node Js"/>
+                    <Icon name="nest" title="Nest"/>
                     <Icon name="python" title="Python / Django"/>
                     <Icon name="dotnet" title=".NET MVC"/>
                 </div>  
