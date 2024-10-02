@@ -7,27 +7,24 @@
 /* Blue: #3da0de */
 /* Blog Yellow Heading: #dec33d */
 
-:root {
-  --dot-pattern-dark: #ffffff;
-  --background-color-dark: #2b2b2b;
-  --dot-pattern-light: #2b2b2b;
-  --background-color-light: #ffffff;
-}
-
 .card {
   padding: 1rem;
   margin: 1rem;
   min-height: 500px;
 }
 
-.dark {
+.card-dark,
+.p-dark {
   border: 1px solid var(--background-color-dark);
-  background-color: var(--background-color-dark);
+  background: var(--background-color-dark) !important;
+  color: var(--text-dark);
 }
 
-.light {
+.card-light,
+.p-light {
   border: 1px solid var(--background-color-light);
-  background-color: var(--background-color-light);
+  background: var(--background-color-light) !important;
+  color: var(--text-light);
 }
 
 .vertical-aligned {

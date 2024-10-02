@@ -9,6 +9,11 @@
     --background-color-dark: #2b2b2b;
     --dot-pattern-light: #2b2b2b;
     --background-color-light: #ffffff;
+    --text-dark: #ffffff;
+    --text-light: #2b2b2b;
+    --navbar-dark: #2b2b2b;
+    --navbar-text-light: #2b2b2b;
+    --navbar-text-dark: #ffffff;
 }
 
 * {
@@ -19,14 +24,14 @@
     margin-top: 600px;
 }
 
-.portfolioContainer-dark {
+.light {
     background: linear-gradient(90deg, var(--background-color-light) 21px, transparent 1%) center,
         linear-gradient(var(--background-color-light) 21px, transparent 1%) center,
         var(--dot-pattern-light);
     background-size: 22px 22px;
 }
 
-.portfolioContainer {
+.dark {
     background: linear-gradient(90deg, var(--background-color-dark) 21px, transparent 1%) center,
         linear-gradient(var(--background-color-dark) 21px, transparent 1%) center,
         var(--dot-pattern-dark);
@@ -73,8 +78,9 @@ code.darkMode {
 .sectionHeaderContainer {
     display: flex;
     justify-content: center;
-    background-color: rgb(189, 131, 131);
+    background-color: inherit;
 }
+
 
 .sectionHeader {
     font-size: 55px;

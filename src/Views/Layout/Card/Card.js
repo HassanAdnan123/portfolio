@@ -3,7 +3,7 @@ import linkedInYellow from '../../../Assets/Icons/linkedinyellow.png'
 
 export default function Card(props) {
     return (
-        <div className={props.isBlogPost ? 'blogCard ' + props.mode : 'card ' + props.mode}>
+        <div className={`${props.isBlogPost ? 'blogCard' : 'card'} card-${props.mode}`}>
 
             {/* Card Headers */}
 
@@ -17,7 +17,7 @@ export default function Card(props) {
             {/* Card Inner Content */}
             <h2 className={props.isBlogPost ? 'cardHeading blogHeading' : 'cardHeading'}>{props.heading}</h2>
 
-            <p className='cardDescription'>{props.description}</p>
+            <p className={`cardDescription p-${props.mode}`}>{props.description}</p>
 
             <div className='technologyTagsContainer'>
                 {props.technologies ?

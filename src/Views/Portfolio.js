@@ -159,15 +159,15 @@ export default function Portfolio() {
 
 
   return (
-    <div className='portfolioContainer'>
+    <div className={`portfolioContainer ${mode}`}>
       <div className='navbar-container'>
-        <Navbar className='navbar-settings' bg="light" variant="light" fixed="top">
-          <Container className='nav-container'>
+        <Navbar className='navbar-settings' bg='light' variant='light' fixed="top">
+          <Container className={`nav-container nav-container-${mode}`}>
             <Nav className="m-auto ">
               <Link href="#me"
                 to="me"
                 activeClass="active"
-                className="nav-link navbar-buttons"
+                className={`nav-link navbar-buttons nav-link-${mode}`}
                 spy={true}
                 smooth={true}
                 offset={-70}
@@ -175,7 +175,7 @@ export default function Portfolio() {
               <Link href="#technology"
                 to="technology"
                 activeClass="active"
-                className="nav-link navbar-buttons"
+                className={`nav-link navbar-buttons nav-link-${mode}`}
                 spy={true}
                 smooth={true}
                 offset={-70}
@@ -183,7 +183,7 @@ export default function Portfolio() {
               <Link href="#work"
                 to="work"
                 activeClass="active"
-                className="nav-link navbar-buttons"
+                className={`nav-link navbar-buttons nav-link-${mode}`}
                 spy={true}
                 smooth={true}
                 offset={-70}
@@ -191,7 +191,7 @@ export default function Portfolio() {
               <Link href="#blogs"
                 to="blogs"
                 activeClass="active"
-                className="nav-link navbar-buttons"
+                className={`nav-link navbar-buttons nav-link-${mode}`}
                 spy={true}
                 smooth={true}
                 offset={-70}
@@ -199,7 +199,7 @@ export default function Portfolio() {
               <Link href="#contact"
                 to="contact"
                 activeClass="active"
-                className="nav-link navbar-buttons"
+                className={`nav-link navbar-buttons nav-link-${mode}`}
                 spy={true}
                 smooth={true}
                 offset={-70}
@@ -227,11 +227,11 @@ export default function Portfolio() {
       </div>
       <div className='cards' id="me">
         <Card className='topCard' verticalAlignedContent={<LandingText />} mode={mode} />
-        <Card image={<DeveloperImage />} />
+        <Card image={<DeveloperImage />} mode={mode} />
       </div>
       <div className='blockCard' id="technology">
         {/* <Card verticalAlignedFullHeightHeading="Tools & Technology" /> */}
-        <Card verticalAlignedContent={<TabViewSkills />} />
+        <Card verticalAlignedContent={<TabViewSkills mode={mode} />} mode={mode} />
       </div>
       <div id="work">
         <div className='sectionHeaderContainer'>
@@ -239,7 +239,7 @@ export default function Portfolio() {
         </div>
         <div className='cards'> {
           projects.map((item) => {
-            return <Card heading={item.title} description={item.content} technologyIcons={item.technologyIcons} />
+            return <Card heading={item.title} description={item.content} technologyIcons={item.technologyIcons} mode={mode} />
           })
         }
           {/* <Card heading={projects[0].title} description={projects[0].content} technologyIcons={projects[1].technologyIcons} />
@@ -258,7 +258,7 @@ export default function Portfolio() {
         <div className='cards'>{
           blogs.map((item) => {
             return <button className='clickableBlog' onClick={() => openInNewTab(item.linkToPost)}>
-              <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={item.technologyIcons} />
+              <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={item.technologyIcons} mode={mode} />
             </button>
           })}
         </div>
@@ -268,7 +268,7 @@ export default function Portfolio() {
           <h1 className='sectionHeader' >Let's have ☕</h1>
         </div>
         <div className='cards'>
-          <Form />
+          <Form mode={mode} />
           <Card heading={''}
             description={feedbackCardText}
             bottomAlignedDescription={
@@ -282,6 +282,7 @@ export default function Portfolio() {
                 })}
               </>
             }
+            mode={mode}
           />
         </div>
       </div>
