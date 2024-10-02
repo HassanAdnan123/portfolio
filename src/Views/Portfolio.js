@@ -37,6 +37,14 @@ export default function Portfolio() {
   const [heartCounter, setHeartCounter] = useState(0)
   const [liked, setLiked] = useLocalStorage('liked', false);
 
+  // useState hook to track the toggle state
+  const [mode, setMode] = useState('light');
+
+  // Toggle function to switch between dark and light modes
+  const toggleDarkMode = () => {
+    setMode(mode === 'light' ? 'dark' : 'light');
+  };
+
   const setLikedInLocalStorage = (event) => {
     setLiked(true);
   };
@@ -52,14 +60,14 @@ export default function Portfolio() {
     }).catch((error) => {
       console.error(error);
     });
-  },[])
+  }, [])
 
   const openInNewTab = (url) => {
     window.open(url, '_blank', 'noreferrer');
   };
 
   const feedbackCardText = 'If you have an awesome idea, let\'s put my development skills and your creativeness on the table'
-  +' and build a great application together! 🙌'
+    + ' and build a great application together! 🙌'
 
   const socialsText = 'You can find me here as well:'
 
@@ -101,7 +109,7 @@ export default function Portfolio() {
       content: "Developed an attendance management system for a local client which extracts attendance and converts to timetable-based data from biometric device.",
       technologies: ["Angular", "Firebase"],
       technologyIcons: [
-        <Icon technologyIcon="true" name="angular" title=""/>,
+        <Icon technologyIcon="true" name="angular" title="" />,
         <Icon technologyIcon="true" name="firebase" title="" />,
         <Icon technologyIcon="true" name="nodejs" title="" />,
         <Icon technologyIcon="true" name="mysql" title="" />
@@ -197,24 +205,28 @@ export default function Portfolio() {
                 offset={-70}
                 duration={500} >Contact</Link>
               <Link disabled={liked}
-                className={liked ? "nav-link navbar-buttons disabled":"nav-link navbar-buttons"}
+                className={liked ? "nav-link navbar-buttons disabled" : "nav-link navbar-buttons"}
                 onClick={() => {
 
                   setLikedInLocalStorage()
-                  
+
                   set(ref(db, 'likeCounter'), {
                     heart: heartCounter + 1
                   });
-                  setHeartCounter(heartCounter+1)
-                }}>   
-                    <button disabled={liked} className={liked ? "clearFormatting likeDisabled" : "clearFormatting"}>{heartCounter}❤️</button>
-                </Link>
+                  setHeartCounter(heartCounter + 1)
+                }}>
+                <button disabled={liked} className={liked ? "clearFormatting likeDisabled" : "clearFormatting"}>{heartCounter}❤️</button>
+              </Link>
             </Nav>
+            {/* Toggle button for dark mode */}
+            <button className="toggle-btn" onClick={toggleDarkMode}>
+              {mode === 'light' ? 'Light' : 'Dark'}
+            </button>
           </Container>
         </Navbar>
       </div>
       <div className='cards' id="me">
-        <Card className='topCard' verticalAlignedContent={<LandingText />} />
+        <Card className='topCard' verticalAlignedContent={<LandingText />} mode={mode} />
         <Card image={<DeveloperImage />} />
       </div>
       <div className='blockCard' id="technology">
@@ -226,7 +238,7 @@ export default function Portfolio() {
           <h1 className='sectionHeader' >See what I've built..</h1>
         </div>
         <div className='cards'> {
-          projects.map((item)=> {
+          projects.map((item) => {
             return <Card heading={item.title} description={item.content} technologyIcons={item.technologyIcons} />
           })
         }
@@ -244,10 +256,10 @@ export default function Portfolio() {
           <h1 className='sectionHeader' >Also a tech writer..</h1>
         </div>
         <div className='cards'>{
-          blogs.map((item)=> {
-            return <button className='clickableBlog' onClick={()=> openInNewTab(item.linkToPost)}>
-                      <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={item.technologyIcons} /> 
-                  </button>
+          blogs.map((item) => {
+            return <button className='clickableBlog' onClick={() => openInNewTab(item.linkToPost)}>
+              <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={item.technologyIcons} />
+            </button>
           })}
         </div>
       </div>
@@ -256,27 +268,27 @@ export default function Portfolio() {
           <h1 className='sectionHeader' >Let's have ☕</h1>
         </div>
         <div className='cards'>
-          <Form/>
-          <Card heading={''} 
-                description={feedbackCardText} 
-                bottomAlignedDescription={
-                  <>
-                    {socialsText}
-                    <br/>
-                    {socialHandles.map((socialHandle)=>{
-                      return <button className='socials' onClick={()=> openInNewTab(socialHandle.link)}>
-                        <Icon technologyIcon="true" name={'sc-'+socialHandle.icon} title="" />
-                      </button>
-                    })}
-                  </>
-                } 
+          <Form />
+          <Card heading={''}
+            description={feedbackCardText}
+            bottomAlignedDescription={
+              <>
+                {socialsText}
+                <br />
+                {socialHandles.map((socialHandle) => {
+                  return <button className='socials' onClick={() => openInNewTab(socialHandle.link)}>
+                    <Icon technologyIcon="true" name={'sc-' + socialHandle.icon} title="" />
+                  </button>
+                })}
+              </>
+            }
           />
         </div>
       </div>
       <div id="footer">
-        <p className='footerContent'> Made in React with ❤️ by 
-                    <button className='author' onClick={()=> openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}> Hassan Adnan </button>
-             ◾ Dark mode coming soon :) </p>
+        <p className='footerContent'> Made in React with ❤️ by
+          <button className='author' onClick={() => openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}> Hassan Adnan </button>
+          ◾ Dark mode coming soon :) </p>
       </div>
     </div>
   )

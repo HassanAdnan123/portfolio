@@ -7,12 +7,27 @@
 /* Blue: #3da0de */
 /* Blog Yellow Heading: #dec33d */
 
+:root {
+  --dot-pattern-dark: #ffffff;
+  --background-color-dark: #2b2b2b;
+  --dot-pattern-light: #2b2b2b;
+  --background-color-light: #ffffff;
+}
+
 .card {
-    padding: 1rem;
-    margin: 1rem;
-    min-height: 500px;
-    border: 1px solid white;
-    background-color: white;
+  padding: 1rem;
+  margin: 1rem;
+  min-height: 500px;
+}
+
+.dark {
+  border: 1px solid var(--background-color-dark);
+  background-color: var(--background-color-dark);
+}
+
+.light {
+  border: 1px solid var(--background-color-light);
+  background-color: var(--background-color-light);
 }
 
 .vertical-aligned {
@@ -66,7 +81,7 @@
 }
 
 
-.technologyTagsContainer{
+.technologyTagsContainer {
   display: flex;
 }
 
@@ -75,21 +90,21 @@
 }
 
 .dropShadow {
-  box-shadow: 
-  0px 4px 20px #eeeeee;
+  box-shadow:
+    0px 4px 20px #eeeeee;
   border: 1px solid #f3f3f3;
 }
 
-@media only screen and (max-width: 600px) { 
+@media only screen and (max-width: 600px) {
   .fullHeightText {
     font-size: 7vh;
   }
 
-  .cardDescription{
+  .cardDescription {
     font-size: 24px;
   }
 
-  .bottomAlignedText{
+  .bottomAlignedText {
     font-size: 24px;
   }
 
@@ -100,7 +115,7 @@
   .cardHeading {
     font-size: 35px;
   }
-  
+
 }
 
 .viewPost {
@@ -121,8 +136,8 @@
 }
 
 .blogCard:hover {
- background-color: #fffae3 !important;
- border: 1px solid #e2f0f3;
+  background-color: #fffae3 !important;
+  border: 1px solid #e2f0f3;
 }
 
 .linkedInIcon {

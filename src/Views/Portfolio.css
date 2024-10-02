@@ -4,7 +4,14 @@
 /* Blue: #3da0de */
 /* Blog Yellow Heading: #dec33d */
 
-*{
+:root {
+    --dot-pattern-dark: #ffffff;
+    --background-color-dark: #2b2b2b;
+    --dot-pattern-light: #2b2b2b;
+    --background-color-light: #ffffff;
+}
+
+* {
     font-family: 'IBM Plex Sans';
 }
 
@@ -12,12 +19,21 @@
     margin-top: 600px;
 }
 
-.portfolioContainer{
-    background: linear-gradient(90deg, #ffffff 21px, transparent 1%) center, linear-gradient(#ffffff 21px, transparent 1%) center, #0c306d;
+.portfolioContainer-dark {
+    background: linear-gradient(90deg, var(--background-color-light) 21px, transparent 1%) center,
+        linear-gradient(var(--background-color-light) 21px, transparent 1%) center,
+        var(--dot-pattern-light);
     background-size: 22px 22px;
 }
 
-.navbar-container{
+.portfolioContainer {
+    background: linear-gradient(90deg, var(--background-color-dark) 21px, transparent 1%) center,
+        linear-gradient(var(--background-color-dark) 21px, transparent 1%) center,
+        var(--dot-pattern-dark);
+    background-size: 22px 22px;
+}
+
+.navbar-container {
     display: flex;
     justify-content: center;
 }
@@ -37,7 +53,9 @@
 }
 
 @media (min-width: 600px) {
-    .cards { grid-template-columns: repeat(2, 1fr); }
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .landingText {
@@ -45,7 +63,7 @@
 }
 
 code {
-    color:#3dbbde;
+    color: #3dbbde;
 }
 
 code.darkMode {
@@ -55,7 +73,7 @@ code.darkMode {
 .sectionHeaderContainer {
     display: flex;
     justify-content: center;
-    background-color: white;
+    background-color: rgb(189, 131, 131);
 }
 
 .sectionHeader {
@@ -66,16 +84,16 @@ code.darkMode {
 }
 
 
-@media only screen and (width < 600px) { 
+@media only screen and (width < 600px) {
     .sectionHeader {
         font-size: 40px;
         margin-top: 100px;
         margin-bottom: 40px;
-    
+
     }
 }
 
-.clearFormatting{
+.clearFormatting {
     background-color: white;
     border: none;
     transition: 0.3s;
@@ -85,7 +103,7 @@ code.darkMode {
     background-color: #3da0de;
 }
 
-.liked{
+.liked {
     background-color: white;
     border: none;
     color: red;
@@ -98,6 +116,7 @@ code.darkMode {
     border-radius: 35px;
     box-shadow: 0px 2px 5px #ebebeb;
 }
+
 #footer {
     display: flex;
     justify-content: center;
@@ -135,6 +154,7 @@ code.darkMode {
 .disabled:hover {
     background-color: rgb(255, 255, 255);
 }
+
 button.likeDisabled {
     color: rgb(228, 107, 107);
 }
