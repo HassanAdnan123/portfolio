@@ -234,7 +234,7 @@ export default function Portfolio() {
         <Card verticalAlignedContent={<TabViewSkills mode={mode} />} mode={mode} />
       </div>
       <div id="work">
-        <div className='sectionHeaderContainer'>
+        <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
           <h1 className='sectionHeader' >See what I've built..</h1>
         </div>
         <div className='cards'> {
@@ -242,17 +242,10 @@ export default function Portfolio() {
             return <Card heading={item.title} description={item.content} technologyIcons={item.technologyIcons} mode={mode} />
           })
         }
-          {/* <Card heading={projects[0].title} description={projects[0].content} technologyIcons={projects[1].technologyIcons} />
-          <Card fullWidthImage={c4life} dropShadow="true" />
-          <Card heading={projects[1].title} description={projects[1].content} technologyIcons={projects[2].technologyIcons} />
-          <Card fullWidthImage={hcm} dropShadow="true" />
-          <Card heading={projects[2].title} description={projects[2].content} technologyIcons={projects[0].technologyIcons} />
-          <Card fullWidthImage={tbaml} dropShadow="true" />
-          <Card heading={projects[3].title} description={projects[0].content} technologyIcons={projects[0].technologyIcons} /> */}
         </div>
       </div>
       <div id="blogs">
-        <div className='sectionHeaderContainer'>
+        <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
           <h1 className='sectionHeader' >Also a tech writer..</h1>
         </div>
         <div className='cards'>{
@@ -264,7 +257,7 @@ export default function Portfolio() {
         </div>
       </div>
       <div id="contact">
-        <div className='sectionHeaderContainer'>
+        <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
           <h1 className='sectionHeader' >Let's have ☕</h1>
         </div>
         <div className='cards'>
@@ -287,9 +280,9 @@ export default function Portfolio() {
         </div>
       </div>
       <div id="footer">
-        <p className='footerContent'> Made in React with ❤️ by
+        <p className={`footerContent footer-${mode}`}> Made in React with ❤️ by
           <button className='author' onClick={() => openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}> Hassan Adnan </button>
-          ◾ Dark mode coming soon :) </p>
+        </p>
       </div>
     </div>
   )

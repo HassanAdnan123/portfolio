@@ -78,7 +78,16 @@ code.darkMode {
 .sectionHeaderContainer {
     display: flex;
     justify-content: center;
-    background-color: inherit;
+}
+
+.sectionHeaderContainer-dark {
+    background: var(--background-color-dark) !important;
+    color: var(--text-dark);
+}
+
+.sectionHeaderContainer-light {
+    background: var(--background-color-light) !important;
+    color: var(--text-light);
 }
 
 
@@ -116,11 +125,23 @@ code.darkMode {
 }
 
 .footerContent {
-    background-color: #ffffff;
     padding: 5px 40px 5px 40px;
-    border: 1px solid #ffffff;
     border-radius: 35px;
-    box-shadow: 0px 2px 5px #ebebeb;
+
+}
+
+.footer-dark {
+    color: var(--text-dark);
+    background-color: var(--background-color-dark);
+    border: 1px solid var(--background-color-dark);
+    box-shadow: 0px 2px 5px var(--background-color-dark);
+}
+
+.footer-light {
+    color: var(--text-light);
+    background-color: var(--background-color-light);
+    border: 1px solid var(--background-color-light);
+    box-shadow: 0px 2px 5px var(--background-color-light);
 }
 
 #footer {
@@ -130,7 +151,7 @@ code.darkMode {
 
 .author {
     border: none;
-    background-color: inherit;
+    background-color: transparent;
     color: #3da0de;
     transition: 0.5s;
 }
