@@ -193,3 +193,12 @@ code.darkMode {
 button.likeDisabled {
     color: rgb(228, 107, 107);
 }
+
+
+.menu-light {
+    color: var(--text-light);
+}
+
+.menu-dark {
+    color: var(--text-dark);
+}
