@@ -159,65 +159,69 @@ export default function Portfolio() {
   return (
     <div className={`portfolioContainer ${mode}`}>
       <div className='navbar-container'>
-        <Navbar className='navbar-settings' bg='light' variant='light' fixed="top">
+        <Navbar className='navbar-settings' bg='light' variant='light' fixed="top" expand="md">
           <Container className={`nav-container nav-container-${mode}`}>
-            <Nav className="m-auto ">
-              <Link href="#me"
-                to="me"
-                activeClass="active"
-                className={`nav-link navbar-buttons nav-link-${mode}`}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}> About Me </Link>
-              <Link href="#technology"
-                to="technology"
-                activeClass="active"
-                className={`nav-link navbar-buttons nav-link-${mode}`}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}> Tools </Link>
-              <Link href="#work"
-                to="work"
-                activeClass="active"
-                className={`nav-link navbar-buttons nav-link-${mode}`}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500} > Projects </Link>
-              <Link href="#blogs"
-                to="blogs"
-                activeClass="active"
-                className={`nav-link navbar-buttons nav-link-${mode}`}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500} >Blogs</Link>
-              <Link href="#contact"
-                to="contact"
-                activeClass="active"
-                className={`nav-link navbar-buttons nav-link-${mode}`}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500} >Contact</Link>
-              <Link disabled={liked}
-                className={liked ? "nav-link navbar-buttons disabled" : "nav-link navbar-buttons"}
-                onClick={() => {
+            <Navbar.Toggle aria-controls="navbar-collapse"
+              className={mode === 'dark' ? 'navbar-toggler-icon-dark' : 'navbar-toggler-icon-light'}
+            > <span className={`menu-${mode}`}>☰</span> </Navbar.Toggle>
+            <Navbar.Collapse id="navbar-collapse">
+              <Nav className="m-auto ">
+                <Link href="#me"
+                  to="me"
+                  activeClass="active"
+                  className={`nav-link navbar-buttons nav-link-${mode}`}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}> About Me </Link>
+                <Link href="#technology"
+                  to="technology"
+                  activeClass="active"
+                  className={`nav-link navbar-buttons nav-link-${mode}`}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}> Tools </Link>
+                <Link href="#work"
+                  to="work"
+                  activeClass="active"
+                  className={`nav-link navbar-buttons nav-link-${mode}`}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500} > Projects </Link>
+                <Link href="#blogs"
+                  to="blogs"
+                  activeClass="active"
+                  className={`nav-link navbar-buttons nav-link-${mode}`}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500} >Blogs</Link>
+                <Link href="#contact"
+                  to="contact"
+                  activeClass="active"
+                  className={`nav-link navbar-buttons nav-link-${mode}`}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500} >Contact</Link>
+                <Link disabled={liked}
+                  className={liked ? "nav-link navbar-buttons disabled" : "nav-link navbar-buttons"}
+                  onClick={() => {
 
-                  setLikedInLocalStorage()
+                    setLikedInLocalStorage()
 
-                  set(ref(db, 'likeCounter'), {
-                    heart: heartCounter + 1
-                  });
-                  setHeartCounter(heartCounter + 1)
-                }}>
-                <button disabled={liked} className={liked ? `clearFormatting-${mode} likeDisabled` : `clearFormatting-${mode} likeEnabled`}>{heartCounter}❤️</button>
-              </Link>
-            </Nav>
-            {/* Toggle button for dark mode */}
-            <DarkModeToggle darkMode={mode !== 'light'} onToggle={toggleDarkMode} width={30} height={10} />
+                    set(ref(db, 'likeCounter'), {
+                      heart: heartCounter + 1
+                    });
+                    setHeartCounter(heartCounter + 1)
+                  }}>
+                  <button disabled={liked} className={liked ? `clearFormatting-${mode} likeDisabled` : `clearFormatting-${mode} likeEnabled`}>{heartCounter}❤️</button>
+                </Link>
+                <DarkModeToggle darkMode={mode !== 'light'} onToggle={toggleDarkMode} width={30} height={10} />
+              </Nav>
+            </Navbar.Collapse>
           </Container>
         </Navbar>
       </div>

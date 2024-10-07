@@ -59,4 +59,8 @@
         font-size: 15px;
     }
 
+    .nav-link {
+        padding-left: 12px;
+    }
+
 }
