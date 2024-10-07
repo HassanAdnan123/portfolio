@@ -8,11 +8,11 @@ export default function Form(props) {
     useEffect(() => {
         const dbRef = ref(db);
         get(child(dbRef, `feedbackForm`)).then((snapshot) => {
-          if (snapshot.exists()) {
-            setFeedbackForm(snapshot.val())
-          }
+            if (snapshot.exists()) {
+                setFeedbackForm(snapshot.val())
+            }
         }).catch((error) => {
-          console.error(error);
+            console.error(error);
         });
     }, [])
 
@@ -23,21 +23,21 @@ export default function Form(props) {
         successMessage: '',
         errorMessage: ''
     };
-    
+
     const reducer = (state, action) => {
-    switch (action.type) {
-        case 'name':
-            return { ...state, name: action.value };
-        case 'email':
-            return { ...state, email: action.value };
-        case 'message':
-            return  { ...state, message: action.value };
-        case 'successMessage':
-            return {...state, successMessage: action.value};
-        case 'errorMessage':
-            return {...state, errorMessage: action.value};
-        default:
-            return state;
+        switch (action.type) {
+            case 'name':
+                return { ...state, name: action.value };
+            case 'email':
+                return { ...state, email: action.value };
+            case 'message':
+                return { ...state, message: action.value };
+            case 'successMessage':
+                return { ...state, successMessage: action.value };
+            case 'errorMessage':
+                return { ...state, errorMessage: action.value };
+            default:
+                return state;
         }
     }
 
@@ -48,34 +48,33 @@ export default function Form(props) {
         let localObject = feedbackForm
 
         // Check if email already exists:
-        if(localObject[stateValue.email.split('.')[0].replace('@','_')] !== undefined)
-        {
-            dispatch({type: 'successMessage', value: ''})
-            dispatch({type: 'errorMessage', value: 'You\'ve already submitted a message from this email!'})
+        if (localObject[stateValue.email.split('.')[0].replace('@', '_')] !== undefined) {
+            dispatch({ type: 'successMessage', value: '' })
+            dispatch({ type: 'errorMessage', value: 'You\'ve already submitted a message from this email!' })
         }
 
 
         else {
             // Split email into 'username_emailProvier' pattern to avoid object save problems
-            localObject[stateValue.email.split('.')[0].replace('@','_')] = stateValue
+            localObject[stateValue.email.split('.')[0].replace('@', '_')] = stateValue
             setFeedbackForm(localObject)
             set(ref(db, 'feedbackForm'), feedbackForm);
-            
+
             // Set alert messages below input fields
-            dispatch({type: 'errorMessage', value: ''})
-            dispatch({type: 'successMessage', value: 'Message sent to Hassan!'})
+            dispatch({ type: 'errorMessage', value: '' })
+            dispatch({ type: 'successMessage', value: 'Message sent to Hassan!' })
         }
-        
+
     }
 
     return (
-        <div className={'card'}>
+        <div className={`card card-${props.mode}`}>
             <h4 className='formInputLabel'>Name </h4>
-            <input autoComplete='off' onChange={ e => dispatch({type: 'name', value: e.target.value})} className='formInput' type='text' placeholder='Cooper from Interstellar...'></input>
+            <input autoComplete='off' onChange={e => dispatch({ type: 'name', value: e.target.value })} className='formInput' type='text' placeholder='Cooper from Interstellar...'></input>
             <h4 className='formInputLabel'>Email </h4>
-            <input type='email'onChange={ e => dispatch({type: 'email', value: e.target.value})}  autoComplete='off' className='formInput' placeholder='cooper@nasa.com'></input>
+            <input type='email' onChange={e => dispatch({ type: 'email', value: e.target.value })} autoComplete='off' className='formInput' placeholder='cooper@nasa.com'></input>
             <h4 className='formInputLabel'>Message </h4>
-            <textarea autoComplete='off' onChange={ e => dispatch({type: 'message', value: e.target.value})} className='formInput' type='text' placeholder='Your message...'></textarea>
+            <textarea autoComplete='off' onChange={e => dispatch({ type: 'message', value: e.target.value })} className='formInput' type='text' placeholder='Your message...'></textarea>
             <button className='submitBtn' onClick={() => submitFeedbackOnFirebase(state)}>Submit</button>
             <h6 className='responseMessage'> <span className="successText">{state.successMessage}</span> <span className="errorText">{state.errorMessage}</span> </h6>
         </div>
