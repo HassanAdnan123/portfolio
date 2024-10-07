@@ -8,11 +8,23 @@
 /* Blog Yellow Heading: #dec33d */
 
 .card {
-    padding: 1rem;
-    margin: 1rem;
-    min-height: 500px;
-    border: 1px solid white;
-    background-color: white;
+  padding: 1rem;
+  margin: 1rem;
+  min-height: 500px;
+}
+
+.card-dark,
+.p-dark {
+  border: 1px solid var(--background-color-dark);
+  background: var(--background-color-dark) !important;
+  color: var(--text-dark);
+}
+
+.card-light,
+.p-light {
+  border: 1px solid var(--background-color-light);
+  background: var(--background-color-light) !important;
+  color: var(--text-light);
 }
 
 .vertical-aligned {
@@ -66,7 +78,7 @@
 }
 
 
-.technologyTagsContainer{
+.technologyTagsContainer {
   display: flex;
 }
 
@@ -75,21 +87,21 @@
 }
 
 .dropShadow {
-  box-shadow: 
-  0px 4px 20px #eeeeee;
+  box-shadow:
+    0px 4px 20px #eeeeee;
   border: 1px solid #f3f3f3;
 }
 
-@media only screen and (max-width: 600px) { 
+@media only screen and (max-width: 600px) {
   .fullHeightText {
     font-size: 7vh;
   }
 
-  .cardDescription{
+  .cardDescription {
     font-size: 24px;
   }
 
-  .bottomAlignedText{
+  .bottomAlignedText {
     font-size: 24px;
   }
 
@@ -100,7 +112,7 @@
   .cardHeading {
     font-size: 35px;
   }
-  
+
 }
 
 .viewPost {
@@ -116,14 +128,13 @@
   min-height: 300px;
   border: 1px solid #ffef9d !important;
   border-radius: 30px;
-  background-color: white;
-  transition: 0.6s;
+  /* transition: 0.6s; */
 }
 
-.blogCard:hover {
- background-color: #fffae3 !important;
- border: 1px solid #e2f0f3;
-}
+/* .blogCard:hover {
+  background-color: #fffae3 !important;
+  border: 1px solid #e2f0f3;
+} */
 
 .linkedInIcon {
   margin: 0px 5px 0 5px;

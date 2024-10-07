@@ -1,4 +1,4 @@
-.navbar-settings{
+.navbar-settings {
     margin-top: 10px;
     margin-bottom: 5px;
     background-color: transparent;
@@ -10,40 +10,53 @@
 
 .nav-link {
     margin: 5px;
-    color: black;
 }
 
-.nav-link.active{
-    background-color: rgb(160, 231, 255);
+.nav-link-dark {
+    color: var(--navbar-text-dark);
+}
+
+.nav-link-light {
+    color: var(--navbar-text-light);
+}
+
+
+.nav-link.active {
+    background-color: rgb(160, 231, 255) !important;
     border-radius: 5px;
 }
 
-.navbar-buttons{
+.navbar-buttons {
     font-size: 20px;
     margin-left: 15px;
     margin-right: 15px;
 }
 
+.navbar-buttons:hover {
+    color: #3da0de !important;
+}
 
-
-.nav-container{
-    background-color: rgb(255, 255, 255);
+.nav-container {
     max-width: 800px;
     opacity: 0.9;
     border-radius: 30px;
 }
 
-@media only screen and (width <= 600px) { 
-    .navbar-buttons{
+.nav-container-dark {
+    background-color: var(--navbar-dark);
+}
+
+.nav-container-light {
+    background-color: var(--background-color-light);
+}
+
+@media only screen and (width <=600px) {
+    .navbar-buttons {
         margin-top: 10px;
         margin-bottom: 10px;
         margin-left: 2px;
         margin-right: 2px;
         font-size: 15px;
     }
-    
+
 }
-
-
-
-
