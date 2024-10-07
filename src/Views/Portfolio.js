@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Layout/Card/Card'
 import DeveloperImage from './Custom/DeveloperImage'
-// import c4life from './../Assets/c4life.jpg'
-// import hcm from './../Assets/hcm.jpg'
-// import tbaml from './../Assets/tbaml.jpg'
 import './Portfolio.css'
 import './Layout/Navbar/Navbar.css'
 import LandingText from './Custom/LandingText'
@@ -14,6 +11,7 @@ import Icon from './Layout/Icons/Icon';
 import { db } from '../utils/firebase'
 import { ref, set, child, get } from 'firebase/database'
 import Form from './Layout/Form/Form'
+import DarkModeToggle from './Layout/Toggles/DarkModeToggle'
 
 const useLocalStorage = (key, initialValue) => {
   // State to store our value
@@ -215,13 +213,11 @@ export default function Portfolio() {
                   });
                   setHeartCounter(heartCounter + 1)
                 }}>
-                <button disabled={liked} className={liked ? "clearFormatting likeDisabled" : "clearFormatting"}>{heartCounter}❤️</button>
+                <button disabled={liked} className={liked ? `clearFormatting-${mode} likeDisabled` : `clearFormatting-${mode} likeEnabled`}>{heartCounter}❤️</button>
               </Link>
             </Nav>
             {/* Toggle button for dark mode */}
-            <button className="toggle-btn" onClick={toggleDarkMode}>
-              {mode === 'light' ? 'Light' : 'Dark'}
-            </button>
+            <DarkModeToggle darkMode={mode !== 'light'} onToggle={toggleDarkMode} width={30} height={10} />
           </Container>
         </Navbar>
       </div>

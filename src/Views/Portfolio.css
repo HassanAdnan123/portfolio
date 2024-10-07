@@ -108,18 +108,26 @@ code.darkMode {
     }
 }
 
-.clearFormatting {
-    background-color: white;
+.clearFormatting-dark {
+    background-color: transparent;
     border: none;
     transition: 0.3s;
+    color: var(--text-dark);
 }
 
-.clearFormatting:hover {
-    background-color: #3da0de;
+.clearFormatting-light {
+    background-color: transparent;
+    border: none;
+    transition: 0.3s;
+    color: var(--text-light);
 }
+
+.likeEnabled:hover {
+    color: red;
+}
+
 
 .liked {
-    background-color: white;
     border: none;
     color: red;
 }

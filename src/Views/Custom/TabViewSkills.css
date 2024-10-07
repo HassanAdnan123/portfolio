@@ -1,21 +1,14 @@
-.tabsMain{
+.tabsMain {
     border-radius: 10%;
-    background-color: aliceblue;
     box-shadow: 0px 5px 15px rgb(232, 232, 232);
 }
-
-/* .inline {
-    display: flex;
-} */
 
 .icon-grid {
     display: grid;
     gap: 1px;
     grid-template-columns: repeat(3, 1fr);
-  }
+}
 
-
-/* - PrimeReact TabView Custom Styles - */
 .p-tabview-title {
     font-weight: lighter;
 }
@@ -29,6 +22,7 @@
 }
 
 .p-tabview-nav-link {
+    /*needs modification based on dark or light mode*/
     background-color: #d4e9f6 !important;
     padding: 8px !important;
 }
@@ -39,23 +33,24 @@
     box-shadow: none !important;
 }
 
-.p-tabview-selected .p-tabview-nav-link .p-tabview-title{
+.p-tabview-selected .p-tabview-nav-link .p-tabview-title {
     color: #3da0de;
-    /* border-bottom: 2px solid lightcoral; */
 }
 
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    /*needs modification based on dark or light mode*/
     background-color: #ffffff !important;
     border: none;
 }
 
 
 .p-tabview-nav {
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;  
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
-.p-highlight{
+.p-highlight {
+    /*needs modification based on dark or light mode*/
     border-bottom: 4px solid #ffffff;
 
 }
