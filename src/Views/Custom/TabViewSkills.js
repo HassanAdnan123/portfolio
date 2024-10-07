@@ -9,10 +9,10 @@ export default function TabViewSkills({ mode }) {
 
 
     return (
-        <div>
-            <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} className='tabsMain'>
+        <div className='tab-container'>
+            <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} className={`${mode}-tabs tabsMain`}>
                 <TabPanel header="Frontend">
-                    <div className='icon-grid'>
+                    <div className={`icon-grid ${mode}-icon-text`}>
                         <Icon name="js" title="Javascript" />
                         <Icon name="react" title="ReactJs" />
                         <Icon name="angular" title="Angular (8+)" />
@@ -24,7 +24,7 @@ export default function TabViewSkills({ mode }) {
 
                 </TabPanel>
                 <TabPanel headerClassName="tabPanel" header="Backend">
-                    <div className='icon-grid'>
+                    <div className={`icon-grid ${mode}-icon-text`}>
                         <Icon name="java" title="Java" />
                         <Icon name="spring" title="Spring MVC" />
                         <Icon name="springboot" title="Springboot" />
@@ -34,7 +34,7 @@ export default function TabViewSkills({ mode }) {
                     </div>
                 </TabPanel>
                 <TabPanel header="Databases">
-                    <div className='icon-grid'>
+                    <div className={`icon-grid ${mode}-icon-text`}>
                         <Icon name="mongo" title="MongoDB" />
                         <Icon name="mysql" title="My SQL" />
                         <Icon name="postgres" title="postgreSQL" />
@@ -43,7 +43,7 @@ export default function TabViewSkills({ mode }) {
                     </div>
                 </TabPanel>
                 <TabPanel header="Tools">
-                    <div className='icon-grid'>
+                    <div className={`icon-grid ${mode}-icon-text`}>
                         <Icon name="vscode" title="VS Code" />
                         <Icon name="intellij" title="IntelliJ Idea" />
                         <Icon name="github" title="Github" />
