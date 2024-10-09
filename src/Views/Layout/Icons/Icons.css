@@ -1,5 +1,5 @@
 .small {
-    
+
     min-height: 48px;
     max-height: 48px;
     margin-left: auto;
@@ -16,10 +16,35 @@
     text-align: center;
 }
 
-@media only screen and (max-width: 600px) { 
+.skeletonContainer {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
     .iconContainer {
+        padding: 8px;
+    }
+
+    .skeletonContainer {
         padding: 8px;
     }
 }
 
+.skeleton {
+    width: 56px !important;
+    height: 56px !important;
+    margin: 16px !important;
 
+}
+
+.dark-icon-text .skeleton-mode {
+    background-color: rgba(155, 155, 155, 0.91) !important;
+    border-radius: 50%;
+}
+
+.light-icon-text .skeleton-mode {
+    background-color: rgb(242, 242, 242) !important;
+    border-radius: 50%;
+}
