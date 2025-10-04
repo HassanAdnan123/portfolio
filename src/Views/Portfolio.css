@@ -179,6 +179,7 @@ code.darkMode {
 
 .clickableBlog {
     border: none;
+    text-decoration: none !important;
     background-color: inherit;
 }
 

@@ -203,7 +203,15 @@ export default function Portfolio() {
                 {textContent.socialsText}
                 <br />
                 {socialHandles.map((socialHandle) => {
-                  return <a key={socialHandle.id} className='socials' href={socialHandle.link} target='_blank' rel='noopener noreferrer' aria-label={`Visit ${socialHandle.title}`}>
+                  return <a
+                    key={socialHandle.id}
+                    className='socials'
+                    href={socialHandle.link}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label={`Visit ${socialHandle.title}`}
+                    style={{ display: 'inline-block', verticalAlign: 'middle' }}
+                  >
                     <Icon technologyIcon="true" name={'sc-' + socialHandle.icon} title="" />
                   </a>
                 })}
