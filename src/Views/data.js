@@ -1,33 +1,12 @@
-export const projects = [
-  {
+export const projects = {
+  0: {
     id: 'tbaml',
     title: "Trade Based Anti-Money Laundering",
     content: "Helped local and international banks automate the process of screening trade transactions to detect Money Laundering and Fraud",
     technologies: [".NET", "Java Springboot", "Angular", "Oracle SQL"],
     technologyIcons: ["dotnet", "angular", "spring", "oracle"]
-  },
-  {
-    id: 'emergency-response',
-    title: "Emergency Response System (Web-App)",
-    content: "Improved the response-time of monitoring devices on a healthcare application that provides emergency rescue to heart attack patients",
-    technologies: ["Firebase", "Java Springboot", "Angular", "AWS MQTT"],
-    technologyIcons: ["firebase", "angular", "aws"]
-  },
-  {
-    id: 'employee-management',
-    title: "Employee Management System",
-    content: "Built the backend architecture and frontend of a HR Management System that is a one-stop solution for employers",
-    technologies: ["Angular", "Java Springboot"],
-    technologyIcons: ["angular", "spring", "postgres"]
-  },
-  {
-    id: 'maallim-attendance',
-    title: "Maallim Attendance Portal",
-    content: "Developed an attendance management system for a local client which extracts attendance and converts to timetable-based data from biometric device.",
-    technologies: ["Angular", "Firebase"],
-    technologyIcons: ["angular", "firebase", "nodejs", "mysql"]
   }
-];
+};
 
 export const blogs = [
   {

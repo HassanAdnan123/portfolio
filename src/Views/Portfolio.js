@@ -34,6 +34,7 @@ const useLocalStorage = (key, initialValue) => {
 export default function Portfolio() {
 
   const [heartCounter, setHeartCounter] = useState(0)
+  const [experiences, setExperiences] = useState({})
   const [liked, setLiked] = useLocalStorage('liked', false);
 
   // Use localStorage for dark mode persistence
@@ -51,13 +52,24 @@ export default function Portfolio() {
   useEffect(() => {
     // Subscribe to real-time like count updates
     const heartRef = ref(db, 'likeCounter/heart');
-    const unsubscribe = onValue(heartRef, (snapshot) => {
+    const experiencesRef = ref(db, 'experiences');
+    const unsubscribeHeart = onValue(heartRef, (snapshot) => {
       setHeartCounter(snapshot.val() || 0);
     }, (error) => {
       console.error('Error fetching like count:', error);
     });
 
-    return () => unsubscribe();
+    const unsubscribeExperiences = onValue(experiencesRef, (snapshot) => {
+      setExperiences(snapshot.val());
+      //console.log(experiences);
+    }, (error) => {
+      console.error('Error fetching experiences:', error);
+    });
+
+    return () => {
+      unsubscribeHeart();
+      unsubscribeExperiences();
+    };
   }, [])
 
   const openInNewTab = useCallback((url) => {
@@ -154,7 +166,7 @@ export default function Portfolio() {
           <h1 className='sectionHeader' >{textContent.sectionHeaders.projects}</h1>
         </div>
         <div className='cards'> {
-          projects.map((item) => {
+          Object.values(experiences).map((item) => {
             const technologyIcons = item.technologyIcons.map((iconName) => (
               <Icon key={iconName} technologyIcon="true" name={iconName} title="" />
             ));
