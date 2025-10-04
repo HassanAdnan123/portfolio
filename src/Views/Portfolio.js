@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Card from './Layout/Card/Card'
 import DeveloperImage from './Custom/DeveloperImage'
 import './Portfolio.css'
@@ -12,7 +12,7 @@ import { db } from '../utils/firebase'
 import { ref, runTransaction, onValue } from 'firebase/database'
 import Form from './Layout/Form/Form'
 import DarkModeToggle from './Layout/Toggles/DarkModeToggle'
-import { projects, blogs, socialHandles, textContent } from './data'
+import { blogs, socialHandles, textContent } from './data'
 
 const useLocalStorage = (key, initialValue) => {
   // State to store our value
