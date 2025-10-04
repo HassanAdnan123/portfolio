@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Card from './Layout/Card/Card'
 import DeveloperImage from './Custom/DeveloperImage'
 import './Portfolio.css'
@@ -9,9 +9,10 @@ import { Nav, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-scroll';
 import Icon from './Layout/Icons/Icon';
 import { db } from '../utils/firebase'
-import { ref, set, child, get } from 'firebase/database'
+import { ref, runTransaction, onValue } from 'firebase/database'
 import Form from './Layout/Form/Form'
 import DarkModeToggle from './Layout/Toggles/DarkModeToggle'
+import { blogs, socialHandles, textContent } from './data'
 
 const useLocalStorage = (key, initialValue) => {
   // State to store our value
@@ -33,10 +34,11 @@ const useLocalStorage = (key, initialValue) => {
 export default function Portfolio() {
 
   const [heartCounter, setHeartCounter] = useState(0)
+  const [experiences, setExperiences] = useState({})
   const [liked, setLiked] = useLocalStorage('liked', false);
 
-  // useState hook to track the toggle state
-  const [mode, setMode] = useState('light');
+  // Use localStorage for dark mode persistence
+  const [mode, setMode] = useLocalStorage('mode', 'light');
 
   // Toggle function to switch between dark and light modes
   const toggleDarkMode = () => {
@@ -48,110 +50,34 @@ export default function Portfolio() {
   };
 
   useEffect(() => {
-
-    // firebase like count
-    const dbRef = ref(db);
-    get(child(dbRef, `likeCounter`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        setHeartCounter(snapshot.val().heart)
-      }
-    }).catch((error) => {
-      console.error(error);
+    // Subscribe to real-time like count updates
+    const heartRef = ref(db, 'likeCounter/heart');
+    const experiencesRef = ref(db, 'experiences');
+    const unsubscribeHeart = onValue(heartRef, (snapshot) => {
+      setHeartCounter(snapshot.val() || 0);
+    }, (error) => {
+      console.error('Error fetching like count:', error);
     });
+
+    const unsubscribeExperiences = onValue(experiencesRef, (snapshot) => {
+      setExperiences(snapshot.val());
+      //console.log(experiences);
+    }, (error) => {
+      console.error('Error fetching experiences:', error);
+    });
+
+    return () => {
+      unsubscribeHeart();
+      unsubscribeExperiences();
+    };
   }, [])
 
-  const openInNewTab = (url) => {
-    window.open(url, '_blank', 'noreferrer');
-  };
-
-  const feedbackCardText = 'If you have an awesome idea, let\'s put my development skills and your creativeness on the table'
-    + ' and build a great application together! 🙌'
-
-  const socialsText = 'You can find me here as well:'
+  const openInNewTab = useCallback((url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }, []);
 
 
-  const projects = [
-    {
-      title: "Trade Based Anti-Money Laundering",
-      content: "Helped local and international banks automate the process of screening trade transactions to detect Money Laundering and Fraud",
-      technologies: [".NET", "Java Springboot", "Angular", "Oracle SQL"],
-      technologyIcons: [
-        <Icon technologyIcon="true" name="dotnet" title="" />,
-        <Icon technologyIcon="true" name="angular" title="" />,
-        <Icon technologyIcon="true" name="spring" title="" />,
-        <Icon technologyIcon="true" name="oracle" title="" />
-      ]
-    },
-    {
-      title: "Emergency Response System (Web-App)",
-      content: "Improved the response-time of monitoring devices on a healthcare application that provides emergency rescue to heart attack patients",
-      technologies: ["Firebase", "Java Springboot", "Angular", "AWS MQTT"],
-      technologyIcons: [
-        <Icon technologyIcon="true" name="firebase" title="" />,
-        <Icon technologyIcon="true" name="angular" title="" />,
-        <Icon technologyIcon="true" name="aws" title="" />
-      ]
-    },
-    {
-      title: "Employee Management System",
-      content: "Built the backend architecture and frontend of a HR Management System that is a one-stop solution for employers",
-      technologies: ["Angular", "Java Springboot"],
-      technologyIcons: [
-        <Icon technologyIcon="true" name="angular" title="" />,
-        <Icon technologyIcon="true" name="spring" title="" />,
-        <Icon technologyIcon="true" name="postgres" title="" />
-      ]
-    },
-    {
-      title: "Maallim Attendance Portal",
-      content: "Developed an attendance management system for a local client which extracts attendance and converts to timetable-based data from biometric device.",
-      technologies: ["Angular", "Firebase"],
-      technologyIcons: [
-        <Icon technologyIcon="true" name="angular" title="" />,
-        <Icon technologyIcon="true" name="firebase" title="" />,
-        <Icon technologyIcon="true" name="nodejs" title="" />,
-        <Icon technologyIcon="true" name="mysql" title="" />
-      ]
-    }
-  ]
 
-  const blogs = [
-    {
-      title: "Microservices: When and why they are used",
-      linkToPost: "https://www.linkedin.com/posts/hassan-adnanpk_development-microservice-twitter-activity-6999265353289592832-OFUz?utm_source=share&utm_medium=member_desktop",
-      content: "Working principle under the hood of microservices that make them so resilient in comparison to single-module based apps (Monoliths)",
-      technologyIcons: [
-        <Icon technologyIcon="true" name="spring" title="" />
-      ]
-    },
-    {
-      title: "Foundation of Javascript: Event Loop",
-      linkToPost: "https://www.linkedin.com/posts/hassan-adnanpk_javascript-eventloop-singlethreaded-activity-6886600934038790144-M5Iz?utm_source=share&utm_medium=member_desktop",
-      content: "An interesting piece of information about how javascript can handle multitasking despite of it being a single-threaded language.",
-      technologyIcons: [
-        <Icon technologyIcon="true" name="js" title="" />
-      ]
-    }
-  ]
-
-  const socialHandles = [
-    {
-      title: "LinkedIn",
-      link: "https://www.linkedin.com/in/hassan-adnanpk/",
-      icon: 'linkedin'
-    },
-    {
-      title: "Twitter",
-      link: "https://twitter.com/luminous_diode",
-      icon: 'twitter'
-    },
-    {
-      title: "Github",
-      link: "https://github.com/HassanAdnan123",
-      icon: 'github'
-    }
-
-  ]
 
 
 
@@ -159,11 +85,11 @@ export default function Portfolio() {
   return (
     <div className={`portfolioContainer ${mode}`}>
       <div className='navbar-container'>
-        <Navbar className='navbar-settings' bg='light' variant='light' fixed="top" expand="md">
+        <Navbar className='navbar-settings' bg={mode} variant={mode} fixed="top" expand="md">
           <Container className={`nav-container nav-container-${mode}`}>
-            <Navbar.Toggle aria-controls="navbar-collapse"
+                <Navbar.Toggle aria-controls="navbar-collapse" aria-label="Toggle navigation"
               className={mode === 'dark' ? 'navbar-toggler-icon-dark' : 'navbar-toggler-icon-light'}
-            > <span className={`menu-${mode}`}>☰</span> </Navbar.Toggle>
+            > <span className={`menu-${mode}`} aria-hidden="true">☰</span> </Navbar.Toggle>
             <Navbar.Collapse id="navbar-collapse">
               <Nav className="m-auto ">
                 <Link href="#me"
@@ -209,15 +135,17 @@ export default function Portfolio() {
                 <Link disabled={liked}
                   className={liked ? "nav-link navbar-buttons disabled" : "nav-link navbar-buttons"}
                   onClick={() => {
-
                     setLikedInLocalStorage()
-
-                    set(ref(db, 'likeCounter'), {
-                      heart: heartCounter + 1
-                    });
-                    setHeartCounter(heartCounter + 1)
+                    
+                    runTransaction(ref(db, 'likeCounter/heart'), (current) => (current || 0) + 1)
+                      .then(({ snapshot }) => {
+                        setHeartCounter(snapshot.val());
+                      })
+                      .catch((error) => {
+                        console.error('Error updating like count:', error);
+                      });
                   }}>
-                  <button disabled={liked} className={liked ? `clearFormatting-${mode} likeDisabled` : `clearFormatting-${mode} likeEnabled`}>{heartCounter}❤️</button>
+                  <button type="button" disabled={liked} className={liked ? `clearFormatting-${mode} likeDisabled` : `clearFormatting-${mode} likeEnabled`}>{heartCounter}❤️</button>
                 </Link>
                 <DarkModeToggle darkMode={mode !== 'light'} onToggle={toggleDarkMode} width={30} height={10} />
               </Nav>
@@ -235,43 +163,57 @@ export default function Portfolio() {
       </div>
       <div id="work">
         <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
-          <h1 className='sectionHeader' >See what I've built..</h1>
+          <h1 className='sectionHeader' >{textContent.sectionHeaders.projects}</h1>
         </div>
         <div className='cards'> {
-          projects.map((item) => {
-            return <Card heading={item.title} description={item.content} technologyIcons={item.technologyIcons} mode={mode} />
+          Object.values(experiences).map((item) => {
+            const technologyIcons = item.technologyIcons.map((iconName) => (
+              <Icon key={iconName} technologyIcon="true" name={iconName} title="" />
+            ));
+            return <Card key={item.id} heading={item.title} description={item.content} technologyIcons={technologyIcons} mode={mode} />
           })
         }
         </div>
       </div>
       <div id="blogs">
         <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
-          <h1 className='sectionHeader' >Also a tech writer..</h1>
+          <h1 className='sectionHeader' >{textContent.sectionHeaders.blogs}</h1>
         </div>
         <div className='cards'>{
           blogs.map((item) => {
-            return <button className='clickableBlog' onClick={() => openInNewTab(item.linkToPost)}>
-              <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={item.technologyIcons} mode={mode} />
-            </button>
+            const technologyIcons = item.technologyIcons.map((iconName) => (
+              <Icon key={iconName} technologyIcon="true" name={iconName} title="" />
+            ));
+            return <a key={item.id} className='clickableBlog' href={item.linkToPost} target='_blank' rel='noopener noreferrer'>
+              <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={technologyIcons} mode={mode} />
+            </a>
           })}
         </div>
       </div>
       <div id="contact">
         <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
-          <h1 className='sectionHeader' >Let's have ☕</h1>
+          <h1 className='sectionHeader' >{textContent.sectionHeaders.contact}</h1>
         </div>
         <div className='cards'>
           <Form mode={mode} />
           <Card heading={''}
-            description={feedbackCardText}
+            description={textContent.feedbackCard}
             bottomAlignedDescription={
               <>
-                {socialsText}
+                {textContent.socialsText}
                 <br />
                 {socialHandles.map((socialHandle) => {
-                  return <button className='socials' onClick={() => openInNewTab(socialHandle.link)}>
+                  return <a
+                    key={socialHandle.id}
+                    className='socials'
+                    href={socialHandle.link}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label={`Visit ${socialHandle.title}`}
+                    style={{ display: 'inline-block', verticalAlign: 'middle' }}
+                  >
                     <Icon technologyIcon="true" name={'sc-' + socialHandle.icon} title="" />
-                  </button>
+                  </a>
                 })}
               </>
             }
@@ -281,7 +223,7 @@ export default function Portfolio() {
       </div>
       <div id="footer">
         <p className={`footerContent footer-${mode}`}> Made in React with ❤️ by
-          <button className='author' onClick={() => openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}> Hassan Adnan </button>
+          <button type="button" className='author' onClick={() => openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}> Hassan Adnan </button>
         </p>
       </div>
     </div>
