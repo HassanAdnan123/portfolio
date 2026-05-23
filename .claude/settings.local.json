@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm audit:*)",
+      "Bash(npm remove:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(mv:*)"
+    ]
+  }
+}

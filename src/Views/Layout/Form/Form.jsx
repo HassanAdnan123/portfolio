@@ -44,27 +44,44 @@ export default function Form(props) {
     const [feedbackForm, setFeedbackForm] = useState({})
     const [state, dispatch] = useReducer(reducer, initialState)
 
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
     const submitFeedbackOnFirebase = (stateValue) => {
+        const name = stateValue.name.trim()
+        const email = stateValue.email.trim()
+        const message = stateValue.message.trim()
+
+        if (!name || name.length > 100) {
+            dispatch({ type: 'successMessage', value: '' })
+            dispatch({ type: 'errorMessage', value: 'Please enter a valid name (max 100 characters).' })
+            return
+        }
+        if (!EMAIL_REGEX.test(email)) {
+            dispatch({ type: 'successMessage', value: '' })
+            dispatch({ type: 'errorMessage', value: 'Please enter a valid email address.' })
+            return
+        }
+        if (!message || message.length > 1000) {
+            dispatch({ type: 'successMessage', value: '' })
+            dispatch({ type: 'errorMessage', value: 'Please enter a message (max 1000 characters).' })
+            return
+        }
+
+        const emailKey = email.replace(/[.#$[\]]/g, '_')
         let localObject = feedbackForm
 
-        // Check if email already exists:
-        if (localObject[stateValue.email.split('.')[0].replace('@', '_')] !== undefined) {
+        if (localObject[emailKey] !== undefined) {
             dispatch({ type: 'successMessage', value: '' })
             dispatch({ type: 'errorMessage', value: 'You\'ve already submitted a message from this email!' })
+            return
         }
 
+        localObject[emailKey] = { name, email, message }
+        setFeedbackForm(localObject)
+        set(ref(db, 'feedbackForm'), localObject)
 
-        else {
-            // Split email into 'username_emailProvier' pattern to avoid object save problems
-            localObject[stateValue.email.split('.')[0].replace('@', '_')] = stateValue
-            setFeedbackForm(localObject)
-            set(ref(db, 'feedbackForm'), feedbackForm);
-
-            // Set alert messages below input fields
-            dispatch({ type: 'errorMessage', value: '' })
-            dispatch({ type: 'successMessage', value: 'Message sent to Hassan!' })
-        }
-
+        dispatch({ type: 'errorMessage', value: '' })
+        dispatch({ type: 'successMessage', value: 'Message sent to Hassan!' })
     }
 
     return (

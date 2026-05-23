@@ -1,31 +1,29 @@
 @import url('./../../../bootstrap/css/bootstrap-grid.min.css');
 @import url('./../../../bootstrap/css/bootstrap.min.css');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Ubuntu:wght@300&display=swap');
-
-
-/* Default Colors: */
-/* Blue: #3da0de */
-/* Blog Yellow Heading: #dec33d */
 
 .card {
-  padding: 1rem;
+  padding: 1.4rem 1.6rem;
   margin: 1rem;
-  min-height: 500px;
+  min-height: 300px;
+  border-radius: 4px !important;
+  transition: border-color 0.2s;
 }
 
 .card-dark,
 .p-dark {
-  border: 1px solid var(--background-color-dark);
-  background: var(--background-color-dark) !important;
-  color: var(--text-dark);
+  border: 1px solid #1e1e1e !important;
+  background: #111111 !important;
+  color: #ffffff;
 }
+.card-dark:hover { border-color: #2e2e2e !important; }
 
 .card-light,
 .p-light {
-  border: 1px solid var(--background-color-light);
-  background: var(--background-color-light) !important;
-  color: var(--text-light);
+  border: 1px solid #e5e5e3 !important;
+  background: #ffffff !important;
+  color: #0a0a0a;
 }
+.card-light:hover { border-color: #d0d0ce !important; }
 
 .vertical-aligned {
   margin-top: auto;
@@ -38,81 +36,68 @@
 }
 
 .fullHeightText {
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 8vh;
-}
-
-.tabPanel {
-  padding: -50px;
+  letter-spacing: 0.04em;
 }
 
 .cardDescription {
-  margin-top: 20px;
-  font-size: 30px;
+  margin-top: 16px;
+  font-size: 18px;
+  line-height: 1.75;
   font-weight: 300;
+  opacity: 0.75;
 }
 
 .bottomAlignedText {
   margin-bottom: 60px;
-  font-size: 30px;
+  font-size: 15px;
+  line-height: 1.7;
   font-weight: 300;
+  opacity: 0.7;
 }
 
 .cardHeading {
-  color: #3da0de;
-  font-size: 40px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #5ba8fa;
+  font-size: 32px;
+  letter-spacing: 0.04em;
 }
 
 .blogHeading {
-  color: #dec33d !important;
+  color: #f0d060 !important;
 }
 
 .technologyTags {
-  margin-right: 20px;
-  font-size: 12px;
-  font-weight: 300;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #327fae;
-  margin-top: 40px;
+  margin-right: 10px;
+  font-size: 11px;
+  font-weight: 400;
+  color: #0a0a0a;
+  padding: 4px 10px;
+  border-radius: 2px;
+  background-color: #5ba8fa;
+  margin-top: 30px;
+  letter-spacing: 0.06em;
 }
-
 
 .technologyTagsContainer {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.fullWidthImage {
-  width: 400px;
-}
+.fullWidthImage { width: 400px; }
 
 .dropShadow {
-  box-shadow:
-    0px 4px 20px #eeeeee;
-  border: 1px solid #f3f3f3;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 @media only screen and (max-width: 600px) {
-  .fullHeightText {
-    font-size: 7vh;
-  }
-
-  .cardDescription {
-    font-size: 24px;
-  }
-
-  .bottomAlignedText {
-    font-size: 24px;
-  }
-
-  .card {
-    min-height: 400px;
-  }
-
-  .cardHeading {
-    font-size: 35px;
-  }
-
+  .fullHeightText  { font-size: 7vh; }
+  .cardDescription { font-size: 14px; }
+  .bottomAlignedText { font-size: 14px; }
+  .card { min-height: 240px; }
+  .cardHeading { font-size: 26px; }
 }
 
 .viewPost {
@@ -123,21 +108,19 @@
 }
 
 .blogCard {
-  padding: 1rem;
+  padding: 1.2rem 1.6rem;
   margin: 1rem;
-  min-height: 300px;
-  border: 1px solid #ffef9d !important;
-  border-radius: 30px;
-  /* transition: 0.6s; */
+  min-height: 280px;
+  border: 1px solid rgba(240, 208, 96, 0.25) !important;
+  border-radius: 4px !important;
+  transition: border-color 0.2s;
+}
+.blogCard:hover {
+  border-color: rgba(240, 208, 96, 0.55) !important;
 }
 
-/* .blogCard:hover {
-  background-color: #fffae3 !important;
-  border: 1px solid #e2f0f3;
-} */
-
 .linkedInIcon {
-  margin: 0px 5px 0 5px;
+  margin: 0 5px;
   width: 15px;
   height: 15px;
 }

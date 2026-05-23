@@ -5,7 +5,14 @@
     margin: 10px;
 }
 
-.dark-mode-toggle span {
-    font-size: 1rem;
-    margin-left: 10px;
+.toggle-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    color: rgba(255, 255, 255, 0.65);
+    transition: color 0.2s;
+}
+
+.portfolioContainer.light .toggle-icon {
+    color: rgba(0, 0, 0, 0.55);
 }
