@@ -11,7 +11,7 @@ import { db } from '../utils/firebase'
 import { ref, runTransaction, onValue } from 'firebase/database'
 import Form from './Layout/Form/Form'
 import DarkModeToggle from './Layout/Toggles/DarkModeToggle'
-import { blogs, socialHandles, textContent } from './data'
+import { socialHandles, textContent } from './data'
 import personalImage from '../Assets/personal-image.png'
 
 const useLocalStorage = (key, initialValue) => {
@@ -28,6 +28,9 @@ const useLocalStorage = (key, initialValue) => {
 export default function Portfolio() {
   const [heartCounter, setHeartCounter]     = useState(0)
   const [experiences, setExperiences]       = useState({})
+  const [blogs, setBlogs]                   = useState([])
+  const [phrases, setPhrases]               = useState([])
+  const [heroTitle, setHeroTitle]           = useState('FULL-STACK DEVELOPER')
   const [liked, setLiked]                   = useLocalStorage('liked', false)
   const [mode, setMode]                     = useLocalStorage('mode', 'dark')
   const [scrolled, setScrolled]             = useState(false)
@@ -49,6 +52,9 @@ export default function Portfolio() {
   useEffect(() => {
     const heartRef       = ref(db, 'likeCounter/heart')
     const experiencesRef = ref(db, 'experiences')
+    const blogsRef       = ref(db, 'blogs')
+    const phrasesRef     = ref(db, 'landingPhrases')
+    const heroTitleRef   = ref(db, 'heroTitle')
 
     const unsubHeart = onValue(heartRef, snap => {
       setHeartCounter(snap.val() || 0)
@@ -58,7 +64,21 @@ export default function Portfolio() {
       setExperiences(snap.val())
     }, err => console.error('Error fetching experiences:', err))
 
-    return () => { unsubHeart(); unsubExp() }
+    const unsubBlogs = onValue(blogsRef, snap => {
+      const val = snap.val()
+      if (val) setBlogs(Object.values(val))
+    }, err => console.error('Error fetching blogs:', err))
+
+    const unsubPhrases = onValue(phrasesRef, snap => {
+      const val = snap.val()
+      if (val) setPhrases(Object.values(val))
+    }, err => console.error('Error fetching landing phrases:', err))
+
+    const unsubHeroTitle = onValue(heroTitleRef, snap => {
+      if (snap.val()) setHeroTitle(snap.val())
+    }, err => console.error('Error fetching hero title:', err))
+
+    return () => { unsubHeart(); unsubExp(); unsubBlogs(); unsubPhrases(); unsubHeroTitle() }
   }, [])
 
   const openInNewTab = useCallback((url) => {
@@ -80,6 +100,29 @@ export default function Portfolio() {
           <Navbar.Brand className={`nav-brand nav-brand-${mode}`}>
             Hassan Adnan
           </Navbar.Brand>
+
+          {/* Mobile-only heart — always visible next to hamburger */}
+          <button
+            type="button"
+            disabled={liked}
+            className={`d-md-none mobile-heart-btn ms-auto ${liked ? `clearFormatting-${mode} likeDisabled` : `clearFormatting-${mode} likeEnabled`}`}
+            onClick={() => {
+              if (liked) return
+              setLiked(true)
+              runTransaction(ref(db, 'likeCounter/heart'), c => (c || 0) + 1)
+                .then(({ snapshot }) => setHeartCounter(snapshot.val()))
+                .catch(err => console.error('Error updating like count:', err))
+            }}
+          >
+            {heartCounter}&nbsp;
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#e05555" style={{ verticalAlign: 'middle', marginBottom: '2px' }}>
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+          </button>
+
+          <div className="d-md-none">
+            <DarkModeToggle darkMode={isDark} onToggle={toggleDarkMode} width={30} height={10} />
+          </div>
 
           <Navbar.Toggle
             aria-controls="navbar-collapse"
@@ -112,7 +155,7 @@ export default function Portfolio() {
               ))}
 
               <Link
-                className={liked ? 'nav-link navbar-buttons disabled' : 'nav-link navbar-buttons'}
+                className={liked ? 'nav-link navbar-buttons disabled d-none d-md-block' : 'nav-link navbar-buttons d-none d-md-block'}
                 disabled={liked}
                 onClick={() => {
                   if (liked) return
@@ -136,7 +179,9 @@ export default function Portfolio() {
                 </button>
               </Link>
 
-              <DarkModeToggle darkMode={isDark} onToggle={toggleDarkMode} width={30} height={10} />
+              <div className="d-none d-md-flex">
+                <DarkModeToggle darkMode={isDark} onToggle={toggleDarkMode} width={30} height={10} />
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -152,8 +197,9 @@ export default function Portfolio() {
         <div className="hero-right">
           <span className="display-name">HASSAN</span>
           <span className="display-name dim">ADNAN</span>
-          <span className="display-title">FULL-STACK</span>
-          <span className="display-title">DEVELOPER</span>
+          {heroTitle.split(' ').map((word, i) => (
+            <span key={i} className="display-title">{word}</span>
+          ))}
         </div>
 
         {/* Profile photo — z-index 2 */}
@@ -168,9 +214,9 @@ export default function Portfolio() {
 
         {/* Left content — z-index 3, always on top */}
         <div className="hero-left">
-          <span className="hero-mobile-title">FULL-STACK DEVELOPER</span>
+          <span className="hero-mobile-title">{heroTitle}</span>
           <div className="hero-left-text">
-            <LandingText mode={mode} />
+            <LandingText mode={mode} phrases={phrases} />
           </div>
           <Link to="contact" smooth={true} duration={500} offset={-70}>
             <button className={`hero-cta${isDark ? '' : ' hero-cta-light'}`}>
@@ -182,7 +228,13 @@ export default function Portfolio() {
         {/* Scroll indicator */}
         <div className="hero-scroll">
           <span className={`scroll-text scroll-text-${mode}`}>Scroll</span>
-          <div className="scroll-line" />
+          <div className="scroll-chevrons">
+            {[0, 1, 2].map(i => (
+              <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -28,6 +28,15 @@
   color: #0a0a0a !important;
 }
 
+.mobile-heart-btn {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 4px 0;
+}
+
 /* mobile collapse */
 @media only screen and (max-width: 767px) {
   .navbar-buttons {

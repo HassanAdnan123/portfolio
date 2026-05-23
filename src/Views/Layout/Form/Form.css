@@ -26,6 +26,18 @@
   font-weight: 300;
 }
 
+.portfolioContainer.light .formInput {
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+.portfolioContainer.light .formInput::placeholder {
+  color: rgba(0, 0, 0, 0.28);
+}
+
+.portfolioContainer.light .submitBtn {
+  border-color: rgba(0, 0, 0, 0.22);
+}
+
 .formInput:focus {
   border-color: #5ba8fa;
 }

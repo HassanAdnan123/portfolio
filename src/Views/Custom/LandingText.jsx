@@ -1,13 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './LandingText.css'
 
 function useTypewriter(texts, { typeSpeed = 50, eraseSpeed = 28, pauseMs = 2600 } = {}) {
     const [displayText, setDisplayText] = useState('')
     const [textIndex, setTextIndex] = useState(0)
     const [phase, setPhase] = useState('typing')
+    const prevTextsRef = useRef(texts)
+
+    // When the source array swaps (e.g. Firebase loads), erase current text first
+    useEffect(() => {
+        if (prevTextsRef.current !== texts && texts.length > 0) {
+            prevTextsRef.current = texts
+            setPhase('erasing')
+            setTextIndex(texts.length - 1)
+        }
+    }, [texts])
 
     useEffect(() => {
-        const text = texts[textIndex]
+        const text = texts[textIndex] ?? ''
         if (phase === 'typing') {
             if (displayText.length < text.length) {
                 const t = setTimeout(() => setDisplayText(text.slice(0, displayText.length + 1)), typeSpeed)
@@ -31,15 +41,13 @@ function useTypewriter(texts, { typeSpeed = 50, eraseSpeed = 28, pauseMs = 2600 
     return displayText
 }
 
-const PHRASES = [
-    'Through clean code and strategic thinking, I build products that scale.',
-    'Full-Stack developer with a passion for Java, Spring Boot & React.',
-    'Turning complex requirements into elegant, scalable solutions.',
-    'Building from idea to production — end to end.',
+const FALLBACK_PHRASES = [
+    'Brewing something good...',
 ]
 
-export default function LandingText({ mode }) {
-    const text = useTypewriter(PHRASES)
+export default function LandingText({ mode, phrases }) {
+    const activePhrases = phrases && phrases.length > 0 ? phrases : FALLBACK_PHRASES
+    const text = useTypewriter(activePhrases)
     return (
         <span className={`tagline-typewriter tagline-typewriter-${mode}`}>
             {text}<span className="cursor-blink">_</span>
