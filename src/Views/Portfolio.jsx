@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Card from './Layout/Card/Card'
-import DeveloperImage from './Custom/DeveloperImage'
 import './Portfolio.css'
 import './Layout/Navbar/Navbar.css'
 import LandingText from './Custom/LandingText'
@@ -13,217 +12,288 @@ import { ref, runTransaction, onValue } from 'firebase/database'
 import Form from './Layout/Form/Form'
 import DarkModeToggle from './Layout/Toggles/DarkModeToggle'
 import { blogs, socialHandles, textContent } from './data'
+import personalImage from '../Assets/personal-image.png'
 
 const useLocalStorage = (key, initialValue) => {
-  // State to store our value
   const [value, setValue] = useState(() => {
-    // Check if a value exists in local storage
-    const storedValue = localStorage.getItem(key);
-    return storedValue ? JSON.parse(storedValue) : initialValue;
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : initialValue;
   });
-
-  // Update the value in local storage whenever it changes
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
-
   return [value, setValue];
 };
 
-
 export default function Portfolio() {
+  const [heartCounter, setHeartCounter]     = useState(0)
+  const [experiences, setExperiences]       = useState({})
+  const [liked, setLiked]                   = useLocalStorage('liked', false)
+  const [mode, setMode]                     = useLocalStorage('mode', 'dark')
+  const [scrolled, setScrolled]             = useState(false)
 
-  const [heartCounter, setHeartCounter] = useState(0)
-  const [experiences, setExperiences] = useState({})
-  const [liked, setLiked] = useLocalStorage('liked', false);
+  const toggleDarkMode = () => setMode(m => m === 'light' ? 'dark' : 'light')
 
-  // Use localStorage for dark mode persistence
-  const [mode, setMode] = useLocalStorage('mode', 'light');
-
-  // Toggle function to switch between dark and light modes
-  const toggleDarkMode = () => {
-    setMode(mode === 'light' ? 'dark' : 'light');
-  };
-
-  const setLikedInLocalStorage = (event) => {
-    setLiked(true);
-  };
-
+  /* disable browser scroll restoration + navbar blur-on-scroll */
   useEffect(() => {
-    // Subscribe to real-time like count updates
-    const heartRef = ref(db, 'likeCounter/heart');
-    const experiencesRef = ref(db, 'experiences');
-    const unsubscribeHeart = onValue(heartRef, (snapshot) => {
-      setHeartCounter(snapshot.val() || 0);
-    }, (error) => {
-      console.error('Error fetching like count:', error);
-    });
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-    const unsubscribeExperiences = onValue(experiencesRef, (snapshot) => {
-      setExperiences(snapshot.val());
-      //console.log(experiences);
-    }, (error) => {
-      console.error('Error fetching experiences:', error);
-    });
+  /* firebase listeners */
+  useEffect(() => {
+    const heartRef       = ref(db, 'likeCounter/heart')
+    const experiencesRef = ref(db, 'experiences')
 
-    return () => {
-      unsubscribeHeart();
-      unsubscribeExperiences();
-    };
+    const unsubHeart = onValue(heartRef, snap => {
+      setHeartCounter(snap.val() || 0)
+    }, err => console.error('Error fetching like count:', err))
+
+    const unsubExp = onValue(experiencesRef, snap => {
+      setExperiences(snap.val())
+    }, err => console.error('Error fetching experiences:', err))
+
+    return () => { unsubHeart(); unsubExp() }
   }, [])
 
   const openInNewTab = useCallback((url) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  }, []);
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }, [])
 
-
-
-
-
-
+  const isDark = mode !== 'light'
 
   return (
     <div className={`portfolioContainer ${mode}`}>
-      <div className='navbar-container'>
-        <Navbar className='navbar-settings' bg={mode} variant={mode} fixed="top" expand="md">
-          <Container className={`nav-container nav-container-${mode}`}>
-                <Navbar.Toggle aria-controls="navbar-collapse" aria-label="Toggle navigation"
-              className={mode === 'dark' ? 'navbar-toggler-icon-dark' : 'navbar-toggler-icon-light'}
-            > <span className={`menu-${mode}`} aria-hidden="true">☰</span> </Navbar.Toggle>
-            <Navbar.Collapse id="navbar-collapse">
-              <Nav className="m-auto ">
-                <Link href="#me"
-                  to="me"
+
+      {/* ── NAVBAR ── */}
+      <Navbar
+        className={`navbar-settings${scrolled ? ' navbar-scrolled' : ''}`}
+        fixed="top"
+        expand="md"
+      >
+        <Container fluid className="nav-container-custom">
+          <Navbar.Brand className={`nav-brand nav-brand-${mode}`}>
+            Hassan Adnan
+          </Navbar.Brand>
+
+          <Navbar.Toggle
+            aria-controls="navbar-collapse"
+            className="border-0"
+          >
+            <span className={`menu-${mode}`}>☰</span>
+          </Navbar.Toggle>
+
+          <Navbar.Collapse id="navbar-collapse">
+            <Nav className="ms-auto align-items-center">
+              {[
+                { to: 'me',         label: 'About'    },
+                { to: 'technology', label: 'Tools'    },
+                { to: 'work',       label: 'Work'     },
+                { to: 'blogs',      label: 'Blogs'    },
+                { to: 'contact',    label: 'Contact'  },
+              ].map(({ to, label }) => (
+                <Link
+                  key={to}
+                  to={to}
                   activeClass="active"
                   className={`nav-link navbar-buttons nav-link-${mode}`}
                   spy={true}
                   smooth={true}
                   offset={-70}
-                  duration={500}> About Me </Link>
-                <Link href="#technology"
-                  to="technology"
-                  activeClass="active"
-                  className={`nav-link navbar-buttons nav-link-${mode}`}
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500}> Tools </Link>
-                <Link href="#work"
-                  to="work"
-                  activeClass="active"
-                  className={`nav-link navbar-buttons nav-link-${mode}`}
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500} > Projects </Link>
-                <Link href="#blogs"
-                  to="blogs"
-                  activeClass="active"
-                  className={`nav-link navbar-buttons nav-link-${mode}`}
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500} >Blogs</Link>
-                <Link href="#contact"
-                  to="contact"
-                  activeClass="active"
-                  className={`nav-link navbar-buttons nav-link-${mode}`}
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500} >Contact</Link>
-                <Link disabled={liked}
-                  className={liked ? "nav-link navbar-buttons disabled" : "nav-link navbar-buttons"}
-                  onClick={() => {
-                    setLikedInLocalStorage()
-                    
-                    runTransaction(ref(db, 'likeCounter/heart'), (current) => (current || 0) + 1)
-                      .then(({ snapshot }) => {
-                        setHeartCounter(snapshot.val());
-                      })
-                      .catch((error) => {
-                        console.error('Error updating like count:', error);
-                      });
-                  }}>
-                  <button type="button" disabled={liked} className={liked ? `clearFormatting-${mode} likeDisabled` : `clearFormatting-${mode} likeEnabled`}>{heartCounter}❤️</button>
+                  duration={500}
+                >
+                  {label}
                 </Link>
-                <DarkModeToggle darkMode={mode !== 'light'} onToggle={toggleDarkMode} width={30} height={10} />
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      </div>
-      <div className='cards' id="me">
-        <Card className='topCard' verticalAlignedContent={<LandingText />} mode={mode} />
-        <Card image={<DeveloperImage />} mode={mode} />
-      </div>
-      <div className='blockCard' id="technology">
-        {/* <Card verticalAlignedFullHeightHeading="Tools & Technology" /> */}
+              ))}
+
+              <Link
+                className={liked ? 'nav-link navbar-buttons disabled' : 'nav-link navbar-buttons'}
+                disabled={liked}
+                onClick={() => {
+                  if (liked) return
+                  setLiked(true)
+                  runTransaction(ref(db, 'likeCounter/heart'), c => (c || 0) + 1)
+                    .then(({ snapshot }) => setHeartCounter(snapshot.val()))
+                    .catch(err => console.error('Error updating like count:', err))
+                }}
+              >
+                <button
+                  type="button"
+                  disabled={liked}
+                  className={liked
+                    ? `clearFormatting-${mode} likeDisabled`
+                    : `clearFormatting-${mode} likeEnabled`}
+                >
+                  {heartCounter}&nbsp;
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#e05555" style={{ verticalAlign: 'middle', marginBottom: '2px' }}>
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                  </svg>
+                </button>
+              </Link>
+
+              <DarkModeToggle darkMode={isDark} onToggle={toggleDarkMode} width={30} height={10} />
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      {/* ── HERO ── */}
+      <section className={`hero hero-${mode}`} id="me">
+
+        {/* Green atmospheric glow */}
+        <div className="hero-glow" />
+
+        {/* Display text — z-index 1, sits behind the photo */}
+        <div className="hero-right">
+          <span className="display-name">HASSAN</span>
+          <span className="display-name dim">ADNAN</span>
+          <span className="display-title">FULL-STACK</span>
+          <span className="display-title">DEVELOPER</span>
+        </div>
+
+        {/* Profile photo — z-index 2 */}
+        <div className="hero-photo-wrapper">
+          <img
+            src={personalImage}
+            alt="Hassan Adnan"
+            className="hero-photo"
+          />
+          <div className="hero-vignette" />
+        </div>
+
+        {/* Left content — z-index 3, always on top */}
+        <div className="hero-left">
+          <span className="hero-mobile-title">FULL-STACK DEVELOPER</span>
+          <div className="hero-left-text">
+            <LandingText mode={mode} />
+          </div>
+          <Link to="contact" smooth={true} duration={500} offset={-70}>
+            <button className={`hero-cta${isDark ? '' : ' hero-cta-light'}`}>
+              LET'S CONNECT <span className="cta-dot">•</span>
+            </button>
+          </Link>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="hero-scroll">
+          <span className={`scroll-text scroll-text-${mode}`}>Scroll</span>
+          <div className="scroll-line" />
+        </div>
+      </section>
+
+      {/* ── TOOLS & TECHNOLOGY ── */}
+      <div className="blockCard" id="technology">
         <Card verticalAlignedContent={<TabViewSkills mode={mode} />} mode={mode} />
       </div>
+
+      {/* ── WORK / PROJECTS ── */}
       <div id="work">
         <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
-          <h1 className='sectionHeader' >{textContent.sectionHeaders.projects}</h1>
+          <h1 className="sectionHeader">{textContent.sectionHeaders.projects}</h1>
         </div>
-        <div className='cards'> {
-          Object.values(experiences).map((item) => {
+        <div className="cards">
+          {Object.values(experiences).map((item) => {
             const technologyIcons = item.technologyIcons.map((iconName) => (
               <Icon key={iconName} technologyIcon="true" name={iconName} title="" />
-            ));
-            return <Card key={item.id} heading={item.title} description={item.content} technologyIcons={technologyIcons} mode={mode} />
-          })
-        }
-        </div>
-      </div>
-      <div id="blogs">
-        <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
-          <h1 className='sectionHeader' >{textContent.sectionHeaders.blogs}</h1>
-        </div>
-        <div className='cards'>{
-          blogs.map((item) => {
-            const technologyIcons = item.technologyIcons.map((iconName) => (
-              <Icon key={iconName} technologyIcon="true" name={iconName} title="" />
-            ));
-            return <a key={item.id} className='clickableBlog' href={item.linkToPost} target='_blank' rel='noopener noreferrer'>
-              <Card isBlogPost={true} heading={item.title} description={item.content} technologyIcons={technologyIcons} mode={mode} />
-            </a>
+            ))
+            return (
+              <Card
+                key={item.id}
+                heading={item.title}
+                description={item.content}
+                technologyIcons={technologyIcons}
+                mode={mode}
+              />
+            )
           })}
         </div>
       </div>
+
+      {/* ── BLOGS ── */}
+      <div id="blogs">
+        <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
+          <h1 className="sectionHeader">{textContent.sectionHeaders.blogs}</h1>
+        </div>
+        <div className="cards">
+          {blogs.map((item) => {
+            const technologyIcons = item.technologyIcons.map((iconName) => (
+              <Icon key={iconName} technologyIcon="true" name={iconName} title="" />
+            ))
+            return (
+              <a
+                key={item.id}
+                className="clickableBlog"
+                href={item.linkToPost}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Card
+                  isBlogPost={true}
+                  heading={item.title}
+                  description={item.content}
+                  technologyIcons={technologyIcons}
+                  mode={mode}
+                />
+              </a>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* ── CONTACT ── */}
       <div id="contact">
         <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
-          <h1 className='sectionHeader' >{textContent.sectionHeaders.contact}</h1>
+          <h1 className="sectionHeader">{textContent.sectionHeaders.contact}</h1>
         </div>
-        <div className='cards'>
+        <div className="cards">
           <Form mode={mode} />
-          <Card heading={''}
+          <Card
+            heading=""
             description={textContent.feedbackCard}
             bottomAlignedDescription={
               <>
                 {textContent.socialsText}
                 <br />
-                {socialHandles.map((socialHandle) => {
-                  return <a
-                    key={socialHandle.id}
-                    className='socials'
-                    href={socialHandle.link}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    aria-label={`Visit ${socialHandle.title}`}
+                {socialHandles.map((s) => (
+                  <a
+                    key={s.id}
+                    className="socials"
+                    href={s.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${s.title}`}
                     style={{ display: 'inline-block', verticalAlign: 'middle' }}
                   >
-                    <Icon technologyIcon="true" name={'sc-' + socialHandle.icon} title="" />
+                    <Icon technologyIcon="true" name={'sc-' + s.icon} title="" />
                   </a>
-                })}
+                ))}
               </>
             }
             mode={mode}
           />
         </div>
       </div>
+
+      {/* ── FOOTER ── */}
       <div id="footer">
-        <p className={`footerContent footer-${mode}`}> Made in React with ❤️ by
-          <button type="button" className='author' onClick={() => openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}> Hassan Adnan </button>
+        <p className={`footerContent footer-${mode}`}>
+          Made in React with&nbsp;
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="#5ba8fa" style={{ verticalAlign: 'middle', marginBottom: '2px' }}>
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+          &nbsp;by&nbsp;
+          <button
+            type="button"
+            className="author"
+            onClick={() => openInNewTab('https://www.linkedin.com/in/hassan-adnanpk/')}
+          >
+            Hassan Adnan
+          </button>
         </p>
       </div>
     </div>

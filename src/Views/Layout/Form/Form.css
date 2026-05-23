@@ -1,58 +1,61 @@
-@import url('./../../../bootstrap/css/bootstrap-grid.min.css');
-@import url('./../../../bootstrap/css/bootstrap.min.css');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Ubuntu:wght@300&display=swap');
-
-/* Default Colors: */
-/* Blue: #3da0de */
-/* Blog Yellow Heading: #dec33d */
-
-
 .formInputLabel {
-  font-size: larger;
-  margin: 25px 0px 10px 5px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 20px 0 8px 0;
+  opacity: 0.7;
 }
 
 .formInput {
-  font-weight: 200;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: 1px solid rgb(234, 234, 234);
-}
-
-.formInput:focus {
-  border: 2px solid #3da0de;
+  width: 100%;
+  background: transparent;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
   outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
 }
 
 .formInput::placeholder {
-  font-weight: 200;
-  color: rgb(180, 180, 180);
+  color: rgba(255, 255, 255, 0.22);
+  font-weight: 300;
 }
 
-.submitBtn{
-  color: white;
-  margin-top: 25px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #3da0de;
-  transition: 0.3s;
+.formInput:focus {
+  border-color: #5ba8fa;
 }
 
-.submitBtn:hover{
-  background-color: #2c7fb3;
+.submitBtn {
+  margin-top: 24px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: inherit;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+  border-radius: 2px;
+}
+
+.submitBtn:hover {
+  background: #5ba8fa;
+  border-color: #5ba8fa;
+  color: #0a0a0a;
 }
 
 .responseMessage {
-  font-weight: 200;
-  margin-top: 20px;
-}
-.successText {
-
-  color: rgb(51, 159, 51);
+  font-size: 12px;
+  font-weight: 300;
+  margin-top: 14px;
+  letter-spacing: 0.04em;
 }
 
-.errorText {
-
-  color: rgb(205, 104, 46);
-}
+.successText { color: #5ba8fa; }
+.errorText   { color: rgba(255, 120, 80, 0.9); }

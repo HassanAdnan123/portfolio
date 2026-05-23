@@ -1,62 +1,48 @@
 import { useState, useEffect } from 'react'
-import './../Portfolio.css'
 import './LandingText.css'
 
-function useTypewriter(texts, { typeSpeed = 50, eraseSpeed = 50, multiTextDelay = 5000 } = {}) {
+function useTypewriter(texts, { typeSpeed = 50, eraseSpeed = 28, pauseMs = 2600 } = {}) {
     const [displayText, setDisplayText] = useState('')
     const [textIndex, setTextIndex] = useState(0)
     const [phase, setPhase] = useState('typing')
 
     useEffect(() => {
         const text = texts[textIndex]
-
         if (phase === 'typing') {
             if (displayText.length < text.length) {
                 const t = setTimeout(() => setDisplayText(text.slice(0, displayText.length + 1)), typeSpeed)
                 return () => clearTimeout(t)
             } else {
-                const t = setTimeout(() => setPhase('erasing'), multiTextDelay)
+                const t = setTimeout(() => setPhase('erasing'), pauseMs)
                 return () => clearTimeout(t)
             }
         }
-
         if (phase === 'erasing') {
             if (displayText.length > 0) {
                 const t = setTimeout(() => setDisplayText(displayText.slice(0, -1)), eraseSpeed)
                 return () => clearTimeout(t)
             } else {
-                setTextIndex((i) => (i + 1) % texts.length)
+                setTextIndex(i => (i + 1) % texts.length)
                 setPhase('typing')
             }
         }
-    }, [displayText, phase, textIndex, texts, typeSpeed, eraseSpeed, multiTextDelay])
+    }, [displayText, phase, textIndex, texts, typeSpeed, eraseSpeed, pauseMs])
 
     return displayText
 }
 
-const TYPEWRITER_TEXTS = [
-    '\u00A0I\'m a Full-Stack Developer.👨‍💻',
-    'I hate bugs 🪲 both real and in software 🥲',
-    'My dream is to write 100% clean code. 🥰',
-    'Java & Javascript are my forte ❤️'
+const PHRASES = [
+    'Through clean code and strategic thinking, I build products that scale.',
+    'Full-Stack developer with a passion for Java, Spring Boot & React.',
+    'Turning complex requirements into elegant, scalable solutions.',
+    'Building from idea to production — end to end.',
 ]
 
-export default function LandingText() {
-    const text = useTypewriter(TYPEWRITER_TEXTS, { typeSpeed: 50, eraseSpeed: 50, multiTextDelay: 5000 })
-
+export default function LandingText({ mode }) {
+    const text = useTypewriter(PHRASES)
     return (
-        <div>
-            <h1 className='landingText'>
-                <code> &lt;code&gt; </code>
-                <br />
-                <div className='indentedText'>
-                    Hi! 👋 I am Hassan,
-                    <span className='landingText' style={{ fontFamily: 'IBM Plex Sans', fontSize: '42px' }}>
-                        {text}<span style={{ color: 'grey' }}>|</span>
-                    </span>
-                </div>
-                <code> &lt;/code&gt; </code>
-            </h1>
-        </div>
+        <span className={`tagline-typewriter tagline-typewriter-${mode}`}>
+            {text}<span className="cursor-blink">_</span>
+        </span>
     )
 }

@@ -1,90 +1,98 @@
+/* ── Icon grid ── */
 .icon-grid {
     display: grid;
-    gap: 1px;
+    gap: 8px;
     grid-template-columns: repeat(3, 1fr);
+    padding: 12px 0;
 }
 
-.p-tabview-title {
-    font-weight: lighter;
-}
+.dark-icon-text  { color: rgba(255, 255, 255, 0.85); }
+.light-icon-text { color: rgba(0, 0, 0, 0.80); }
 
-.p-tabview-nav {
-    padding-top: 10px;
-    padding-left: 5px;
-    background-color: #94d4ea !important;
-    box-shadow: 0px 2px 5px rgb(193, 193, 193);
-    border-bottom: none !important;
-}
-
+/* ── Outer wrapper ── */
 .tab-container {
-    border: 1px solid #3da0de87;
-    border-top-left-radius: 5%;
-    border-top-right-radius: 5%;
+    border: 1px solid #1e1e1e;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.tab-container:has(.light-tabs) {
+    border-color: #e5e5e3;
 }
 
-.tabsMain {
-    border-radius: 10%;
-}
-
-.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-    outline: 0 none;
-    outline-offset: 0;
+/* ── Kill every PrimeReact theme color ── */
+.p-tabview,
+.p-tabview .p-tabview-nav,
+.p-tabview .p-tabview-nav-container,
+.p-tabview .p-tabview-panels {
+    background: transparent !important;
+    border: none !important;
     box-shadow: none !important;
 }
 
-.p-tabview-selected .p-tabview-nav-link .p-tabview-title {
-    color: #3da0de;
+/* ── Nav bar ── */
+.p-tabview .p-tabview-nav {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10) !important;
+    padding: 0 8px;
+}
+.p-tabview.light-tabs .p-tabview-nav {
+    border-bottom-color: rgba(0, 0, 0, 0.12) !important;
 }
 
-
-.p-tabview-nav {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-}
-
-
-
-.flex-items-3 {
-    flex-basis: 33.333333%;
-}
-
-.p-tabview-nav-link {
-    background-color: #8fbac8 !important;
+/* ── Inactive tab (dark) ── */
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    background: transparent !important;
     border: none !important;
-    padding: 8px !important;
-    margin-right: 2px !important;
-    margin-bottom: -4px;
+    color: rgba(255, 255, 255, 0.40) !important;
+    border-radius: 0 !important;
+    padding: 11px 20px !important;
+    margin: 0 !important;
+    transition: color 0.2s, background 0.2s !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:hover {
+    color: rgba(255, 255, 255, 0.75) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
 }
 
-.p-highlight {
-    border-bottom: 4px solid #94d4ea;
+/* ── Inactive tab (light) ── */
+.p-tabview.light-tabs .p-tabview-nav li .p-tabview-nav-link {
+    color: rgba(0, 0, 0, 0.45) !important;
+}
+.p-tabview.light-tabs .p-tabview-nav li .p-tabview-nav-link:hover {
+    color: rgba(0, 0, 0, 0.75) !important;
+    background: rgba(0, 0, 0, 0.04) !important;
 }
 
+/* ── Active tab (dark) — tab shape ── */
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background-color: var(--background-color-light) !important;
-    margin-right: 2px !important;
+    color: #5ba8fa !important;
+    background: rgba(91, 168, 250, 0.08) !important;
+    border: 1px solid rgba(91, 168, 250, 0.28) !important;
+    border-bottom-color: #111111 !important;
+    border-radius: 4px 4px 0 0 !important;
+    margin-bottom: -1px !important;
+    text-decoration: none !important;
 }
 
-.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background-color: var(--background-color-light) !important;
-    margin-right: 2px !important;
+/* ── Active tab (light) — tab shape ── */
+.p-tabview.light-tabs .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    color: #5ba8fa !important;
+    background: rgba(91, 168, 250, 0.07) !important;
+    border-color: rgba(91, 168, 250, 0.28) !important;
+    border-bottom-color: #ffffff !important;
 }
 
-/* Dark Mode specific settings */
-.dark-tabs .p-tabview-panels {
-    background-color: var(--background-color-dark) !important;
+/* ── Remove focus ring ── */
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-
-/* Light Mode specific settings */
-.light-tabs .p-tabview-panels {
-    background-color: var(--background-color-light) !important;
-}
-
-.dark-icon-text {
-    color: var(--text-dark);
-}
-
-.light-icon-text {
-    color: var(--text-light);
+/* ── Panel area ── */
+.p-tabview .p-tabview-panels {
+    padding: 20px 12px !important;
 }

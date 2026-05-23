@@ -1,41 +1,23 @@
-.landingText {
-  font-size: 42px;
+.tagline-typewriter {
+    font-family: var(--font-body, 'IBM Plex Sans', sans-serif);
+    font-size: 20px;
+    line-height: 1.85;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.55);
 }
 
-@keyframes flickerAnimation {
-    0%   { opacity:1; }
-    50%  { opacity:0; }
-    100% { opacity:1; }
-  }
-  @-o-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:0; }
-    100% { opacity:1; }
-  }
-  @-moz-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:0; }
-    100% { opacity:1; }
-  }
-  @-webkit-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:0; }
-    100% { opacity:1; }
-  }
-  .animate-flicker {
-     -webkit-animation: flickerAnimation 3s infinite;
-     -moz-animation: flickerAnimation 3s infinite;
-     -o-animation: flickerAnimation 3s infinite;
-      animation: flickerAnimation 3s infinite;
-  }
+.tagline-typewriter-light {
+    color: rgba(0, 0, 0, 0.55);
+}
 
-  @media (min-width: 1500px) {
-    .landingText {
-      font-size: 50px;
-    }
-  }
+.cursor-blink {
+    color: #5ba8fa;
+    animation: blink 1.1s step-start infinite;
+    font-weight: 300;
+    margin-left: 1px;
+}
 
-  .indentedText {
-    margin-left: 20px;
-  }
-  
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
