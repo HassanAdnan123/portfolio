@@ -1,73 +1,111 @@
-import { TabView, TabPanel } from 'primereact/tabview';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import Icon from '../Layout/Icons/Icon';
-import { staggerContainer, iconItem } from '../animations';
-import './TabViewSkills.css';
+import { AnimatePresence, motion, useTransform } from 'framer-motion'
+import Icon from '../Layout/Icons/Icon'
+import { staggerContainer, iconItem } from '../animations'
+import './TabViewSkills.css'
 
-export default function TabViewSkills({ mode }) {
-    const [activeIndex, setActiveIndex] = useState(0);
+const TABS = [
+  {
+    label: 'Frontend',
+    icons: [
+      { name: 'js',         title: 'Javascript'    },
+      { name: 'react',      title: 'ReactJs'       },
+      { name: 'angular',    title: 'Angular (8+)'  },
+      { name: 'ionic',      title: 'Ionic'         },
+      { name: 'html',       title: 'HTML'          },
+      { name: 'css',        title: 'CSS'           },
+    ]
+  },
+  {
+    label: 'Backend',
+    icons: [
+      { name: 'java',       title: 'Java'          },
+      { name: 'spring',     title: 'Spring MVC'    },
+      { name: 'springboot', title: 'Springboot'    },
+      { name: 'nest',       title: 'Nest'          },
+      { name: 'python',     title: 'Python / Django'},
+      { name: 'dotnet',     title: '.NET MVC'      },
+    ]
+  },
+  {
+    label: 'Databases',
+    icons: [
+      { name: 'mongo',      title: 'MongoDB'       },
+      { name: 'mysql',      title: 'My SQL'        },
+      { name: 'postgres',   title: 'postgreSQL'    },
+      { name: 'sqlserver',  title: 'MS SQL Server' },
+      { name: 'oracle',     title: 'PL-SQL'        },
+    ]
+  },
+  {
+    label: 'Tools',
+    icons: [
+      { name: 'vscode',     title: 'VS Code'       },
+      { name: 'intellij',   title: 'IntelliJ Idea' },
+      { name: 'github',     title: 'Github'        },
+      { name: 'dbeaver',    title: 'Dbeaver DB Client' },
+      { name: 'postman',    title: 'Postman'       },
+    ]
+  },
+]
 
-    const IconGrid = ({ children }) => (
-        <motion.div
+const gridVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 }
+  },
+  exit: { opacity: 0, transition: { duration: 0.18 } }
+}
+
+export default function TabViewSkills({ mode, activeIndex = 0, scrollProgress }) {
+  const tab = TABS[activeIndex]
+  const barWidth = useTransform(scrollProgress, [0, 1], ['0%', '100%'])
+
+  return (
+    <div className={`tab-container tab-container-${mode}`}>
+
+      {/* ── Tab headers (display only — scroll drives active state) ── */}
+      <div className={`skills-tab-nav skills-tab-nav-${mode}`}>
+        {TABS.map((t, i) => (
+          <div
+            key={i}
+            className={`skills-tab-btn skills-tab-btn-${mode}${i === activeIndex ? ' active' : ''}`}
+          >
+            {t.label}
+          </div>
+        ))}
+      </div>
+
+      {/* ── Tab content with AnimatePresence ── */}
+      <div className="skills-panel">
+        <AnimatePresence mode="wait">
+          <motion.div
             key={activeIndex}
             className={`icon-grid ${mode}-icon-text`}
-            variants={staggerContainer}
+            variants={gridVariants}
             initial="hidden"
             animate="visible"
-        >
-            {children}
-        </motion.div>
-    );
+            exit="exit"
+          >
+            {tab.icons.map((icon) => (
+              <motion.div key={icon.name} variants={iconItem}>
+                <Icon name={icon.name} title={icon.title} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-    const AnimIcon = (props) => (
-        <motion.div variants={iconItem}>
-            <Icon {...props} />
-        </motion.div>
-    );
+      {/* ── Scroll hint ── */}
+      <p className={`skills-scroll-hint skills-scroll-hint-${mode}`}>
+        Scroll to explore &nbsp;{activeIndex + 1} / {TABS.length}
+      </p>
 
-    return (
-        <div className='tab-container'>
-            <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} className={`${mode}-tabs tabsMain`}>
-                <TabPanel header="Frontend">
-                    <IconGrid>
-                        <AnimIcon name="js" title="Javascript" />
-                        <AnimIcon name="react" title="ReactJs" />
-                        <AnimIcon name="angular" title="Angular (8+)" />
-                        <AnimIcon name="ionic" title="Ionic" />
-                        <AnimIcon name="html" title="HTML" />
-                        <AnimIcon name="css" title="CSS" />
-                    </IconGrid>
-                </TabPanel>
-                <TabPanel headerClassName="tabPanel" header="Backend">
-                    <IconGrid>
-                        <AnimIcon name="java" title="Java" />
-                        <AnimIcon name="spring" title="Spring MVC" />
-                        <AnimIcon name="springboot" title="Springboot" />
-                        <AnimIcon name="nest" title="Nest" />
-                        <AnimIcon name="python" title="Python / Django" />
-                        <AnimIcon name="dotnet" title=".NET MVC" />
-                    </IconGrid>
-                </TabPanel>
-                <TabPanel header="Databases">
-                    <IconGrid>
-                        <AnimIcon name="mongo" title="MongoDB" />
-                        <AnimIcon name="mysql" title="My SQL" />
-                        <AnimIcon name="postgres" title="postgreSQL" />
-                        <AnimIcon name="sqlserver" title="MS SQL Server" />
-                        <AnimIcon name="oracle" title="PL-SQL" />
-                    </IconGrid>
-                </TabPanel>
-                <TabPanel header="Tools">
-                    <IconGrid>
-                        <AnimIcon name="vscode" title="VS Code" />
-                        <AnimIcon name="intellij" title="IntelliJ Idea" />
-                        <AnimIcon name="github" title="Github" />
-                        <AnimIcon name="dbeaver" title="Dbeaver DB Client" />
-                        <AnimIcon name="postman" title="Postman" />
-                    </IconGrid>
-                </TabPanel>
-            </TabView>
-        </div>
-    )
+      {/* ── Bottom progress loader — fills as you scroll through all tabs ── */}
+      <div className={`skills-loader-track skills-loader-track-${mode}`}>
+        <motion.div className="skills-loader-fill" style={{ width: barWidth }} />
+      </div>
+
+    </div>
+  )
 }

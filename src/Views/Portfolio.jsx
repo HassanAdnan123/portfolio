@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Card from './Layout/Card/Card'
 import './Portfolio.css'
 import './Layout/Navbar/Navbar.css'
@@ -13,7 +13,7 @@ import Form from './Layout/Form/Form'
 import DarkModeToggle from './Layout/Toggles/DarkModeToggle'
 import { socialHandles, textContent } from './data'
 import personalImage from '../Assets/personal-image.png'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValueEvent, useMotionValue } from 'framer-motion'
 import ScrollRevealBox from './ScrollRevealBox'
 
 const useLocalStorage = (key, initialValue) => {
@@ -39,10 +39,37 @@ export default function Portfolio() {
 
   const toggleDarkMode = () => setMode(m => m === 'light' ? 'dark' : 'light')
 
-  /* hero parallax */
-  const heroRef = useRef(null)
-  const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const photoParallaxY = useTransform(heroScroll, [0, 1], [0, -100])
+  /* hero + tech crossfade — single scrollY source, no target bounding-box issues */
+  const { scrollY } = useScroll()
+  const heroContentOpacity     = useTransform(scrollY, [60,  320], [1, 0])
+  const scrollIndicatorOpacity = useTransform(scrollY, [0,   80],  [1, 0])
+  const techFadeIn             = useTransform(scrollY, [200, 480], [0, 1])
+  const techHeadingX           = useTransform(techFadeIn, [0, 1], [-60, 0])
+
+  /* scroll-driven skills tabs + single active-section tracker for all nav links */
+  const [techTabIndex, setTechTabIndex] = useState(0)
+  const [activeSection, setActiveSection] = useState('')
+  const techScrollProgress = useMotionValue(0)
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const start = 500
+    const range = window.innerHeight * 3
+    const p = Math.min(1, Math.max(0, (y - start) / range))
+    techScrollProgress.set(p)
+    setTechTabIndex(Math.min(3, Math.floor(p * 4)))
+
+    // Walk sections bottom-to-top; first one whose top is <= scrollY wins
+    let next = y >= 400 && y < window.innerHeight * 5 ? 'technology' : ''
+    for (const id of ['work', 'blogs', 'contact']) {
+      const el = document.getElementById(id)
+      if (el) {
+        const top = el.getBoundingClientRect().top + y
+        // contact gets a generous threshold since the page may not scroll past its top
+        const threshold = id === 'contact' ? window.innerHeight * 0.55 : 80
+        if (y >= top - threshold) next = id
+      }
+    }
+    setActiveSection(next)
+  })
 
   /* disable browser scroll restoration + navbar blur-on-scroll */
   useEffect(() => {
@@ -141,18 +168,16 @@ export default function Portfolio() {
           <Navbar.Collapse id="navbar-collapse">
             <Nav className="ms-auto align-items-center">
               {[
-                { to: 'me',         label: 'About'    },
-                { to: 'technology', label: 'Tools'    },
-                { to: 'work',       label: 'Work'     },
-                { to: 'blogs',      label: 'Blogs'    },
-                { to: 'contact',    label: 'Contact'  },
+                { to: 'technology', label: 'Tools'   },
+                { to: 'work',       label: 'Work'    },
+                { to: 'blogs',      label: 'Blogs'   },
+                { to: 'contact',    label: 'Contact' },
               ].map(({ to, label }) => (
                 <Link
                   key={to}
                   to={to}
-                  activeClass="active"
-                  className={`nav-link navbar-buttons nav-link-${mode}`}
-                  spy={true}
+                  className={`nav-link navbar-buttons nav-link-${mode}${activeSection === to ? ' active' : ''}`}
+                  spy={false}
                   smooth={true}
                   offset={-70}
                   duration={500}
@@ -194,68 +219,71 @@ export default function Portfolio() {
         </Container>
       </Navbar>
 
-      {/* ── HERO ── */}
-      <section ref={heroRef} className={`hero hero-${mode}`} id="me">
+      {/* ── HERO + TECH crossfade (single sticky viewport) ── */}
+      <div className="hero-tech-container" id="me">
+        <div className="hero-tech-sticky">
 
-        {/* Green atmospheric glow */}
-        <div className="hero-glow" />
+          {/* Hero layer — fades out on scroll */}
+          <section className={`hero-layer hero hero-${mode}`}>
+            <motion.div className="hero-right" style={{ opacity: heroContentOpacity }}>
+              <span className="display-name">HASSAN</span>
+              <span className="display-name dim">ADNAN</span>
+              {heroTitle.split(' ').map((word, i) => (
+                <span key={i} className="display-title">{word}</span>
+              ))}
+            </motion.div>
 
-        {/* Display text — z-index 1, sits behind the photo */}
-        <div className="hero-right">
-          <span className="display-name">HASSAN</span>
-          <span className="display-name dim">ADNAN</span>
-          {heroTitle.split(' ').map((word, i) => (
-            <span key={i} className="display-title">{word}</span>
-          ))}
-        </div>
+            <motion.div className="hero-photo-parallax" style={{ opacity: heroContentOpacity }}>
+              <motion.div
+                className="hero-photo-wrapper"
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <img src={personalImage} alt="Hassan Adnan" className="hero-photo" />
+                <div className="hero-vignette" />
+              </motion.div>
+            </motion.div>
 
-        {/* Profile photo — z-index 2, parallax + entry animation */}
-        <motion.div className="hero-photo-parallax" style={{ y: photoParallaxY }}>
-          <motion.div
-            className="hero-photo-wrapper"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <img
-              src={personalImage}
-              alt="Hassan Adnan"
-              className="hero-photo"
-            />
-            <div className="hero-vignette" />
+            <motion.div className="hero-left" style={{ opacity: heroContentOpacity }}>
+              <span className="hero-mobile-title">{heroTitle}</span>
+              <div className="hero-left-text">
+                <LandingText mode={mode} phrases={phrases} />
+              </div>
+              <Link to="contact" smooth={true} duration={500} offset={-70}>
+                <button className={`hero-cta${isDark ? '' : ' hero-cta-light'}`}>
+                  LET'S CONNECT <span className="cta-dot">•</span>
+                </button>
+              </Link>
+            </motion.div>
+
+            <motion.div className="hero-scroll" style={{ opacity: scrollIndicatorOpacity }}>
+              <span className={`scroll-text scroll-text-${mode}`}>Scroll</span>
+              <div className="scroll-chevrons">
+                {[0, 1, 2].map(i => (
+                  <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                ))}
+              </div>
+            </motion.div>
+          </section>
+
+          {/* Tech layer — fades in behind hero as it disappears */}
+          <motion.div className="tech-layer" style={{ opacity: techFadeIn }}>
+            <motion.h2 className="tech-heading" style={{ x: techHeadingX }}>The Toolbox</motion.h2>
+            <div className="blockCard">
+              <Card
+                verticalAlignedContent={
+                  <TabViewSkills mode={mode} activeIndex={techTabIndex} scrollProgress={techScrollProgress} />
+                }
+                mode={mode}
+              />
+            </div>
           </motion.div>
-        </motion.div>
 
-        {/* Left content — z-index 3, always on top */}
-        <div className="hero-left">
-          <span className="hero-mobile-title">{heroTitle}</span>
-          <div className="hero-left-text">
-            <LandingText mode={mode} phrases={phrases} />
-          </div>
-          <Link to="contact" smooth={true} duration={500} offset={-70}>
-            <button className={`hero-cta${isDark ? '' : ' hero-cta-light'}`}>
-              LET'S CONNECT <span className="cta-dot">•</span>
-            </button>
-          </Link>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="hero-scroll">
-          <span className={`scroll-text scroll-text-${mode}`}>Scroll</span>
-          <div className="scroll-chevrons">
-            {[0, 1, 2].map(i => (
-              <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TOOLS & TECHNOLOGY ── */}
-      <ScrollRevealBox className="blockCard" id="technology">
-        <Card verticalAlignedContent={<TabViewSkills mode={mode} />} mode={mode} />
-      </ScrollRevealBox>
+      </div>
 
       {/* ── WORK / PROJECTS ── */}
       <div id="work">

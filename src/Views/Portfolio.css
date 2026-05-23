@@ -110,9 +110,54 @@
 /* ─────────────────────────────────────────
    HERO
 ───────────────────────────────────────── */
-.hero {
+/* ── Single sticky viewport: hero crossfades into tech ── */
+.hero-tech-container {
+  height: 500vh;   /* ~150vh hero fade zone + 300vh tab scroll + buffer */
   position: relative;
-  min-height: 100vh;
+}
+
+
+.hero-tech-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;   /* hero is display-only while faded */
+}
+
+.tech-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0 20px;   /* clear fixed navbar */
+  width: 100%;
+}
+
+.tech-heading {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 6vw, 82px);
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin: 0 0 40px;
+  text-align: center;
+  width: 100%;
+}
+
+.tech-layer .blockCard {
+  width: 100%;
+}
+
+.hero {
   overflow: hidden;
 }
 
@@ -176,11 +221,6 @@
   padding-left: 3vw;
   user-select: none;
   pointer-events: none;
-  animation: heroHeadingIn 1s ease-out both;
-}
-@keyframes heroHeadingIn {
-  from { opacity: 0; transform: translateY(-58%) translateX(-60px); }
-  to   { opacity: 1; transform: translateY(-58%) translateX(0); }
 }
 
 .display-name {
@@ -229,6 +269,7 @@
   justify-content: space-between;
   align-items: flex-start;
   text-align: left;
+  pointer-events: auto;
 }
 
 .hero-left-text {
@@ -339,6 +380,23 @@
 @keyframes chevronCascade {
   0%, 100% { opacity: 0.15; transform: translateY(0); }
   50%       { opacity: 1;    transform: translateY(3px); }
+}
+
+/* ─────────────────────────────────────────
+   SKILLS STICKY SCROLL SECTION
+───────────────────────────────────────── */
+.tech-sticky-inner {
+  position: sticky;
+  top: 70px;                          /* sit below the fixed navbar */
+  height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  width: 100%;                        /* flex item must be told to stretch */
+}
+
+.tech-sticky-inner .blockCard {
+  width: 100%;                        /* fill the full sticky area */
 }
 
 /* ─────────────────────────────────────────
