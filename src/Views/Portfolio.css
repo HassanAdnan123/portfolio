@@ -118,20 +118,21 @@
 
 /* glow removed per user request */
 
-/* ── Profile photo — center-right ── */
-.hero-photo-wrapper {
+/* ── Profile photo parallax shell — handles scroll-linked movement ── */
+.hero-photo-parallax {
   position: absolute;
   bottom: 0;
   left: 36%;
   height: 92vh;
   z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Profile photo wrapper — entry animation via Framer Motion ── */
+.hero-photo-wrapper {
   display: flex;
   align-items: flex-end;
-  animation: heroPhotoIn 1s ease-out both;
-}
-@keyframes heroPhotoIn {
-  from { opacity: 0; transform: translateY(60px); }
-  to   { opacity: 1; transform: translateY(0); }
+  height: 100%;
 }
 
 .hero-photo {
@@ -490,7 +491,7 @@ button.likeDisabled { color: #e46b6b; }
     min-width: unset;
     height: 200px;
   }
-  .hero-photo-wrapper { height: 78vh; }
+  .hero-photo-parallax { height: 78vh; }
   .hero-photo { max-width: 340px; }
 }
 
@@ -502,10 +503,9 @@ button.likeDisabled { color: #e46b6b; }
   .hero-right { display: none; }
 
   /* Center photo as hero backdrop */
-  .hero-photo-wrapper {
+  .hero-photo-parallax {
     left: calc(50% - 130px);
     height: 92vh;
-    animation: heroPhotoIn 1s ease-out both;
   }
   .hero-photo {
     max-width: 260px;

@@ -1,56 +1,71 @@
 import { TabView, TabPanel } from 'primereact/tabview';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import Icon from '../Layout/Icons/Icon';
+import { staggerContainer, iconItem } from '../animations';
 import './TabViewSkills.css';
-
 
 export default function TabViewSkills({ mode }) {
     const [activeIndex, setActiveIndex] = useState(0);
 
+    const IconGrid = ({ children }) => (
+        <motion.div
+            key={activeIndex}
+            className={`icon-grid ${mode}-icon-text`}
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+        >
+            {children}
+        </motion.div>
+    );
+
+    const AnimIcon = (props) => (
+        <motion.div variants={iconItem}>
+            <Icon {...props} />
+        </motion.div>
+    );
 
     return (
         <div className='tab-container'>
             <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} className={`${mode}-tabs tabsMain`}>
                 <TabPanel header="Frontend">
-                    <div className={`icon-grid ${mode}-icon-text`}>
-                        <Icon name="js" title="Javascript" />
-                        <Icon name="react" title="ReactJs" />
-                        <Icon name="angular" title="Angular (8+)" />
-                        <Icon name="ionic" title="Ionic" />
-                        <Icon name="html" title="HTML" />
-                        <Icon name="css" title="CSS" />
-                    </div>
-
-
+                    <IconGrid>
+                        <AnimIcon name="js" title="Javascript" />
+                        <AnimIcon name="react" title="ReactJs" />
+                        <AnimIcon name="angular" title="Angular (8+)" />
+                        <AnimIcon name="ionic" title="Ionic" />
+                        <AnimIcon name="html" title="HTML" />
+                        <AnimIcon name="css" title="CSS" />
+                    </IconGrid>
                 </TabPanel>
                 <TabPanel headerClassName="tabPanel" header="Backend">
-                    <div className={`icon-grid ${mode}-icon-text`}>
-                        <Icon name="java" title="Java" />
-                        <Icon name="spring" title="Spring MVC" />
-                        <Icon name="springboot" title="Springboot" />
-                        <Icon name="nest" title="Nest" />
-                        <Icon name="python" title="Python / Django" />
-                        <Icon name="dotnet" title=".NET MVC" />
-                    </div>
+                    <IconGrid>
+                        <AnimIcon name="java" title="Java" />
+                        <AnimIcon name="spring" title="Spring MVC" />
+                        <AnimIcon name="springboot" title="Springboot" />
+                        <AnimIcon name="nest" title="Nest" />
+                        <AnimIcon name="python" title="Python / Django" />
+                        <AnimIcon name="dotnet" title=".NET MVC" />
+                    </IconGrid>
                 </TabPanel>
                 <TabPanel header="Databases">
-                    <div className={`icon-grid ${mode}-icon-text`}>
-                        <Icon name="mongo" title="MongoDB" />
-                        <Icon name="mysql" title="My SQL" />
-                        <Icon name="postgres" title="postgreSQL" />
-                        <Icon name="sqlserver" title="MS SQL Server" />
-                        <Icon name="oracle" title="PL-SQL" />
-                    </div>
+                    <IconGrid>
+                        <AnimIcon name="mongo" title="MongoDB" />
+                        <AnimIcon name="mysql" title="My SQL" />
+                        <AnimIcon name="postgres" title="postgreSQL" />
+                        <AnimIcon name="sqlserver" title="MS SQL Server" />
+                        <AnimIcon name="oracle" title="PL-SQL" />
+                    </IconGrid>
                 </TabPanel>
                 <TabPanel header="Tools">
-                    <div className={`icon-grid ${mode}-icon-text`}>
-                        <Icon name="vscode" title="VS Code" />
-                        <Icon name="intellij" title="IntelliJ Idea" />
-                        <Icon name="github" title="Github" />
-                        <Icon name="dbeaver" title="Dbeaver DB Client" />
-                        <Icon name="postman" title="Postman" />
-                    </div>
-
+                    <IconGrid>
+                        <AnimIcon name="vscode" title="VS Code" />
+                        <AnimIcon name="intellij" title="IntelliJ Idea" />
+                        <AnimIcon name="github" title="Github" />
+                        <AnimIcon name="dbeaver" title="Dbeaver DB Client" />
+                        <AnimIcon name="postman" title="Postman" />
+                    </IconGrid>
                 </TabPanel>
             </TabView>
         </div>

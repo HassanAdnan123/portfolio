@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import Card from './Layout/Card/Card'
 import './Portfolio.css'
 import './Layout/Navbar/Navbar.css'
@@ -13,6 +13,8 @@ import Form from './Layout/Form/Form'
 import DarkModeToggle from './Layout/Toggles/DarkModeToggle'
 import { socialHandles, textContent } from './data'
 import personalImage from '../Assets/personal-image.png'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import ScrollRevealBox from './ScrollRevealBox'
 
 const useLocalStorage = (key, initialValue) => {
   const [value, setValue] = useState(() => {
@@ -36,6 +38,11 @@ export default function Portfolio() {
   const [scrolled, setScrolled]             = useState(false)
 
   const toggleDarkMode = () => setMode(m => m === 'light' ? 'dark' : 'light')
+
+  /* hero parallax */
+  const heroRef = useRef(null)
+  const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
+  const photoParallaxY = useTransform(heroScroll, [0, 1], [0, -100])
 
   /* disable browser scroll restoration + navbar blur-on-scroll */
   useEffect(() => {
@@ -188,7 +195,7 @@ export default function Portfolio() {
       </Navbar>
 
       {/* ── HERO ── */}
-      <section className={`hero hero-${mode}`} id="me">
+      <section ref={heroRef} className={`hero hero-${mode}`} id="me">
 
         {/* Green atmospheric glow */}
         <div className="hero-glow" />
@@ -202,15 +209,22 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Profile photo — z-index 2 */}
-        <div className="hero-photo-wrapper">
-          <img
-            src={personalImage}
-            alt="Hassan Adnan"
-            className="hero-photo"
-          />
-          <div className="hero-vignette" />
-        </div>
+        {/* Profile photo — z-index 2, parallax + entry animation */}
+        <motion.div className="hero-photo-parallax" style={{ y: photoParallaxY }}>
+          <motion.div
+            className="hero-photo-wrapper"
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <img
+              src={personalImage}
+              alt="Hassan Adnan"
+              className="hero-photo"
+            />
+            <div className="hero-vignette" />
+          </motion.div>
+        </motion.div>
 
         {/* Left content — z-index 3, always on top */}
         <div className="hero-left">
@@ -239,28 +253,32 @@ export default function Portfolio() {
       </section>
 
       {/* ── TOOLS & TECHNOLOGY ── */}
-      <div className="blockCard" id="technology">
+      <ScrollRevealBox className="blockCard" id="technology">
         <Card verticalAlignedContent={<TabViewSkills mode={mode} />} mode={mode} />
-      </div>
+      </ScrollRevealBox>
 
       {/* ── WORK / PROJECTS ── */}
       <div id="work">
-        <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
+        <ScrollRevealBox
+          className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}
+          xFrom={-60}
+        >
           <h1 className="sectionHeader">{textContent.sectionHeaders.projects}</h1>
-        </div>
+        </ScrollRevealBox>
         <div className="cards">
           {Object.values(experiences).map((item) => {
             const technologyIcons = item.technologyIcons.map((iconName) => (
               <Icon key={iconName} technologyIcon="true" name={iconName} title="" />
             ))
             return (
-              <Card
-                key={item.id}
-                heading={item.title}
-                description={item.content}
-                technologyIcons={technologyIcons}
-                mode={mode}
-              />
+              <ScrollRevealBox key={item.id}>
+                <Card
+                  heading={item.title}
+                  description={item.content}
+                  technologyIcons={technologyIcons}
+                  mode={mode}
+                />
+              </ScrollRevealBox>
             )
           })}
         </div>
@@ -268,30 +286,34 @@ export default function Portfolio() {
 
       {/* ── BLOGS ── */}
       <div id="blogs">
-        <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
+        <ScrollRevealBox
+          className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}
+          xFrom={-60}
+        >
           <h1 className="sectionHeader">{textContent.sectionHeaders.blogs}</h1>
-        </div>
+        </ScrollRevealBox>
         <div className="cards">
           {blogs.map((item) => {
             const technologyIcons = item.technologyIcons.map((iconName) => (
               <Icon key={iconName} technologyIcon="true" name={iconName} title="" />
             ))
             return (
-              <a
-                key={item.id}
-                className="clickableBlog"
-                href={item.linkToPost}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Card
-                  isBlogPost={true}
-                  heading={item.title}
-                  description={item.content}
-                  technologyIcons={technologyIcons}
-                  mode={mode}
-                />
-              </a>
+              <ScrollRevealBox key={item.id} style={{ display: 'flex', flexDirection: 'column' }}>
+                <a
+                  className="clickableBlog"
+                  href={item.linkToPost}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Card
+                    isBlogPost={true}
+                    heading={item.title}
+                    description={item.content}
+                    technologyIcons={technologyIcons}
+                    mode={mode}
+                  />
+                </a>
+              </ScrollRevealBox>
             )
           })}
         </div>
@@ -299,35 +321,42 @@ export default function Portfolio() {
 
       {/* ── CONTACT ── */}
       <div id="contact">
-        <div className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}>
+        <ScrollRevealBox
+          className={`sectionHeaderContainer sectionHeaderContainer-${mode}`}
+          xFrom={-60}
+        >
           <h1 className="sectionHeader">{textContent.sectionHeaders.contact}</h1>
-        </div>
+        </ScrollRevealBox>
         <div className="cards">
-          <Form mode={mode} />
-          <Card
-            heading=""
-            description={textContent.feedbackCard}
-            bottomAlignedDescription={
-              <>
-                {textContent.socialsText}
-                <br />
-                {socialHandles.map((s) => (
-                  <a
-                    key={s.id}
-                    className="socials"
-                    href={s.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${s.title}`}
-                    style={{ display: 'inline-block', verticalAlign: 'middle' }}
-                  >
-                    <Icon technologyIcon="true" name={'sc-' + s.icon} title="" />
-                  </a>
-                ))}
-              </>
-            }
-            mode={mode}
-          />
+          <ScrollRevealBox>
+            <Form mode={mode} />
+          </ScrollRevealBox>
+          <ScrollRevealBox>
+            <Card
+              heading=""
+              description={textContent.feedbackCard}
+              bottomAlignedDescription={
+                <>
+                  {textContent.socialsText}
+                  <br />
+                  {socialHandles.map((s) => (
+                    <a
+                      key={s.id}
+                      className="socials"
+                      href={s.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${s.title}`}
+                      style={{ display: 'inline-block', verticalAlign: 'middle' }}
+                    >
+                      <Icon technologyIcon="true" name={'sc-' + s.icon} title="" />
+                    </a>
+                  ))}
+                </>
+              }
+              mode={mode}
+            />
+          </ScrollRevealBox>
         </div>
       </div>
 
